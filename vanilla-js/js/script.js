@@ -1,5 +1,6 @@
 window.onload = () => {
-  // 各要素の取得 (querySelector)
+  // 各要素の取得
+
   const usernameInput = document.querySelector("#username-input");
   const passwordInput = document.querySelector("#password-input");
   const switchPasswordVisibilityButton = document.querySelector(
@@ -11,7 +12,9 @@ window.onload = () => {
   // パスワード表示切り替えボタンの処理
   //   - パスワード入力欄の type を変更
   //   - ボタンのテキストを変更 (Show / Hide)
-  switchPasswordVisibilityButton.addEventListener("click", () => {
+
+  switchPasswordVisibilityButton.addEventListener("click", (event) => {
+    event.preventDefault();
     if (passwordInput.type === "password") {
       passwordInput.type = "text";
       switchPasswordVisibilityButton.textContent = "Hide";
@@ -30,12 +33,8 @@ window.onload = () => {
     event.preventDefault();
     const username = usernameInput.value;
     const password = passwordInput.value;
-    if (username === "") {
-      messageDiv.textContent = "ユーザー名は必須です。";
-      return;
-    }
-    if (password === "") {
-      messageDiv.textContent = "パスワードは必須です。";
+    if (username === "" || password === "") {
+      messageDiv.textContent = "ユーザー名とパスワードを入力してください。";
       return;
     }
     if (username !== password) {
@@ -43,6 +42,6 @@ window.onload = () => {
       return;
     }
     messageDiv.textContent = "";
-    alert(username + "さん、こんにちは！");
+    alert(`${username} さん、ようこそ！`);
   });
 };
