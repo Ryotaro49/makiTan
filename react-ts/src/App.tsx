@@ -1,9 +1,9 @@
 import { useCallback, useRef, useState } from "react";
 import "./App.css";
+import { PasswordInput } from "./components/elements/PasswordInput";
 
 function App() {
   const [username, setUsername] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
   const [message, setMessage] = useState("");
   const passwordRef = useRef<HTMLInputElement>(null);
   const handleSubmit = useCallback(
@@ -40,18 +40,7 @@ function App() {
           <div id="name"></div>
         </div>
         <div className="box">
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="パスワード"
-            ref={passwordRef}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? "Hide" : "Show"}
-          </button>
+          <PasswordInput value="hoge" />
         </div>
         <div className="box">
           <div id="message">{message}</div>
