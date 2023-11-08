@@ -5,14 +5,11 @@ import { PasswordInput } from "./components/elements/PasswordInput";
 function App() {
   const [username, setUsername] = useState("");
   const [message, setMessage] = useState("");
-  const passwordRef = useRef<HTMLInputElement>(null);
+  // const passwordRef = useRef<HTMLInputElement>(null);
+  const [password, setPassword] = useState("");
   const handleSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      if (!passwordRef.current) {
-        return;
-      }
-      const password = passwordRef.current.value;
       if (username === "" || password === "") {
         setMessage("ユーザー名とパスワードを入力してください。");
         return;
@@ -24,7 +21,7 @@ function App() {
       setMessage("");
       alert(`${username} さん、ようこそ！`);
     },
-    [username, passwordRef, setMessage]
+    [username, password, setMessage]
   );
   return (
     <>
@@ -40,7 +37,12 @@ function App() {
           <div id="name"></div>
         </div>
         <div className="box">
-          <PasswordInput value="hoge" />
+          <PasswordInput
+            placeholder="パスワード"
+            name="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
         <div className="box">
           <div id="message">{message}</div>
