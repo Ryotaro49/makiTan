@@ -1,5 +1,4 @@
 import { useCallback, useState } from "react";
-import "./App.css";
 import { PasswordInput } from "./components/elements/PasswordInput";
 import { Button } from "./components/elements/Button";
 
