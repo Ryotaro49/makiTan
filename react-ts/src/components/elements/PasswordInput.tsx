@@ -1,17 +1,11 @@
-import { useState } from "react";
+import { InputHTMLAttributes, useState } from "react";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 
-type PasswordInputProps = {
-  value: string;
-  onChange: (event: { target: { value: string } }) => void;
-};
+type PasswordInputProps = InputHTMLAttributes<HTMLInputElement>;
 
 export function PasswordInput(props: PasswordInputProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChange(event);
-  };
 
   return (
     <>
@@ -20,7 +14,7 @@ export function PasswordInput(props: PasswordInputProps) {
         name="password"
         placeholder="パスワード"
         value={props.value}
-        onChange={handleInputChange}
+        onChange={props.onChange}
       />
       <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
