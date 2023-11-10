@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import { PasswordInput } from "./components/elements/PasswordInput";
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
 
   const handleUsernameChange = (event: {
     target: { value: React.SetStateAction<string> };
@@ -53,17 +51,7 @@ function App() {
         <div id="name"></div>
       </div>
       <div className="box">
-        <input
-          type={showPassword ? "text" : "password"}
-          name="password"
-          id="password-input"
-          placeholder="パスワード"
-          value={password}
-          onChange={handlePasswordChange}
-        />
-        <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
-          {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-        </button>
+        <PasswordInput value={password} onChange={handlePasswordChange} />
       </div>
       <div className="box">
         {message && <div>{message}</div>}
