@@ -1,6 +1,7 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useState } from "react";
 import "./App.css";
 import { PasswordInput } from "./components/elements/PasswordInput";
+import { Button } from "./components/elements/Button";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -47,7 +48,7 @@ function App() {
         <div className="box">
           <div id="message">{message}</div>
           <div className="box">
-            <button type="submit">ログイン</button>
+            <Button type="submit">ログイン</Button>
           </div>
         </div>
       </form>
