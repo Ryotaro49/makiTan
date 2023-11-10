@@ -9,13 +9,7 @@ export function PasswordInput(props: PasswordInputProps) {
 
   return (
     <>
-      <input
-        type={showPassword ? "text" : "password"}
-        name="password"
-        placeholder="パスワード"
-        value={props.value}
-        onChange={props.onChange}
-      />
+      <input {...props} type={showPassword ? "text" : "password"} />
       <button type="button" onClick={() => setShowPassword((prev) => !prev)}>
         {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
       </button>{" "}

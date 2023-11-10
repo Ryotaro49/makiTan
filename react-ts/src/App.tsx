@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "./App.css";
 import { PasswordInput } from "./components/elements/PasswordInput";
 import { Button } from "./components/elements/Button";
 
@@ -7,18 +6,6 @@ function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-
-  const handleUsernameChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setUsername(event.target.value);
-  };
-
-  const handlePasswordChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setPassword(event.target.value);
-  };
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -47,12 +34,17 @@ function App() {
           id="username-input"
           placeholder="ユーザー名"
           value={username}
-          onChange={handleUsernameChange}
+          onChange={(e) => setUsername(e.target.value)}
         />
         <div id="name"></div>
       </div>
       <div className="box">
-        <PasswordInput value={password} onChange={handlePasswordChange} />
+        <PasswordInput
+          placeholder="パスワード"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
       </div>
       <div className="box">
         {message && <div>{message}</div>}
