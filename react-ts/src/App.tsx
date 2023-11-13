@@ -35,6 +35,7 @@ function App() {
           placeholder="ユーザー名"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          className="border-teal border bg-slate-50"
         />
         <div id="name"></div>
       </div>
@@ -44,6 +45,7 @@ function App() {
           name="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
+          className="border-teal border bg-slate-50"
         />
       </div>
       <div className="box">
