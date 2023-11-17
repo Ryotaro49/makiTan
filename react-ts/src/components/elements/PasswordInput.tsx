@@ -1,6 +1,6 @@
 import { InputHTMLAttributes, useState } from "react";
-import { EyeOpenIcon } from "./icons/EyeOpenIcon";
-import { EyeCloseIcon } from "./icons/EyeCloseIcon";
+import { EyeOpenIcon } from "../icons/EyeOpenIcon";
+import { EyeCloseIcon } from "../icons/EyeCloseIcon";
 
 type PasswordInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, "type">;
 
