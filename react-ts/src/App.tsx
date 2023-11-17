@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { PasswordInput } from "./components/elements/PasswordInput";
 import { Button } from "./components/elements/Button";
+import { TextInput } from "./components/elements/TextInput";
+import { Message } from "./components/elements/Message";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -28,14 +30,13 @@ function App() {
   return (
     <form id="login-form" onSubmit={handleSubmit}>
       <div className="box">
-        <input
+        <TextInput
           type="text"
           name="username"
           id="username-input"
           placeholder="ユーザー名"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border-teal border bg-slate-50"
         />
         <div id="name"></div>
       </div>
@@ -49,7 +50,7 @@ function App() {
         />
       </div>
       <div className="box">
-        {message && <div>{message}</div>}
+        <Message message={message} variant="error" />
         <div className="box">
           <Button type="submit" id="login-button">
             ログイン
