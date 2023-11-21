@@ -1,4 +1,7 @@
-type MessageProps = { message: string; variant: "error" | "info" };
+type MessageProps = {
+  message: string;
+  variant: "error" | "info";
+};
 
 export function Message(props: MessageProps) {
   const className =
