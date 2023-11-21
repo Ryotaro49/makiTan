@@ -3,11 +3,13 @@ import { PasswordInput } from "./components/elements/PasswordInput";
 import { Button } from "./components/elements/Button";
 import { TextInput } from "./components/elements/TextInput";
 import { Message } from "./components/elements/Message";
+import { CheckBox } from "./components/elements/CheckBox";
 
 function App() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [saveUsername, setSaveUsername] = useState(false);
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -40,15 +42,18 @@ function App() {
         />
         <div id="name"></div>
       </div>
-      <div className="box">
-        <PasswordInput
-          placeholder="パスワード"
-          name="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="border-teal border bg-slate-50"
-        />
-      </div>
+      <PasswordInput
+        placeholder="パスワード"
+        name="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        className="border-teal border bg-slate-50"
+      />
+      <CheckBox
+        label="ユーザー名を保存する"
+        checked={saveUsername}
+        onChange={(e) => setSaveUsername(e.target.checked)}
+      />
       <div className="box">
         <Message message={message} variant="error" />
         <div className="box">
