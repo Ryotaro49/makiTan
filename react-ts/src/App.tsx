@@ -30,39 +30,36 @@ function App() {
   };
 
   return (
-    <form id="login-form" onSubmit={handleSubmit}>
-      <div className="box">
-        <TextInput
-          type="text"
-          name="username"
-          id="username-input"
-          placeholder="ユーザー名"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <div id="name"></div>
-      </div>
-      <PasswordInput
-        placeholder="パスワード"
-        name="password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-        className="border-teal border bg-slate-50"
-      />
-      <CheckBox
-        label="ユーザー名を保存する"
-        checked={saveUsername}
-        onChange={(e) => setSaveUsername(e.target.checked)}
-      />
-      <div className="box">
-        <Message message={message} variant="error" />
-        <div className="box">
-          <Button type="submit" id="login-button">
-            ログイン
-          </Button>
+    <div className="flex h-full place-items-center justify-center">
+      <form id="login-form" onSubmit={handleSubmit}>
+        <div>
+          <TextInput
+            type="text"
+            name="username"
+            id="username-input"
+            placeholder="ユーザー名"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
-      </div>
-    </form>
+        <PasswordInput
+          placeholder="パスワード"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="border-teal border bg-slate-50"
+        />
+        <CheckBox
+          label="ユーザー名を保存する"
+          checked={saveUsername}
+          onChange={(e) => setSaveUsername(e.target.checked)}
+        />
+        <Message message={message} variant="error" />
+        <Button type="submit" id="login-button">
+          ログイン
+        </Button>
+      </form>
+    </div>
   );
 }
 
