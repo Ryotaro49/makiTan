@@ -1,9 +1,10 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { PasswordInput } from "./components/elements/PasswordInput";
 import { Button } from "./components/elements/Button";
 import { TextInput } from "./components/elements/TextInput";
 import { Message } from "./components/elements/Message";
 import { CheckBox } from "./components/elements/CheckBox";
+import { usePointerPosition } from "./hooks/usePointerPosition";
 
 function App() {
   const [username, setUsername] = useState("");
@@ -26,6 +27,12 @@ function App() {
     },
     [username, password, setMessage],
   );
+
+  const { position, ctrlKey } = usePointerPosition({
+    offset: { x: 50, y: 50 },
+  });
+  console.log(position, ctrlKey);
+
   return (
     <div className="flex h-full place-items-center justify-center">
       <form onSubmit={handleSubmit} className="rounded-lg border p-8 shadow-lg">
@@ -54,6 +61,20 @@ function App() {
           </div>
         </div>
       </form>
+      <div
+        style={{
+          position: "absolute",
+          backgroundColor: "pink",
+          borderRadius: "50%",
+          opacity: 0.6,
+          transform: `translate(${position.x}px, ${position.y}px)`,
+          pointerEvents: "none",
+          left: -20,
+          top: -20,
+          width: 40,
+          height: 40,
+        }}
+      />
     </div>
   );
 }
