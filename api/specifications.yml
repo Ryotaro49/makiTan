@@ -1,0 +1,121 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'EitanGo'
+  description: 'Remember 英単語'
+
+servers:
+  - url: https://roqfzbr1cj.execute-api.ap-northeast-1.amazonaws.com/
+    description: テスト環境
+
+paths:
+  /phrases:
+    get:
+      summary: 語句一覧を取得する
+      description: 指定したユーザーが登録しているカテゴリごとの語句リストを取得します。
+      parameters:
+        - name: user_id
+          required: true
+          description: ユーザーID
+          in: query
+          schema:
+            type: string
+          example: d8j32nfa8g
+        - name: category
+          required: true
+          description: カテゴリ
+          in: query
+          schema:
+            type: string
+          example: noun
+        - name: exclude_is_passed
+          description: 覚えた語句をフィルターするか
+          in: query
+          schema:
+            type: number
+          example: 0
+        - name: limit
+          description: 取得する語句数 ※DynamoDBのFilterの関係で必ずしも指定した数にならない可能性あり
+          in: query
+          schema:
+            type: number
+          example: 10
+      responses:
+        200:
+          description: 取得成功
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Phrase'
+
+  /phrase:
+    put:
+      summary: 語句を登録する
+      description: 指定した語句を登録します。すでに登録されている場合も上書きされます。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Phrase'
+      responses:
+        200:
+          description: 登録完了
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Phrase'
+
+    delete:
+      summary: 語句を削除する
+      description: 指定した語句を削除します。
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PhraseKey'
+      responses:
+        200:
+          description: 語句
+
+components:
+  schemas:
+
+    Phrase:
+      type: object
+      properties:
+        user_id:
+          type: string
+        category:
+          type: string
+        phrase:
+          type: string
+        meaning:
+          type: string
+        registration_date:
+          type: string
+        updated_at:
+          type: string
+        is_passed:
+          type: boolean
+
+    PhraseKey:
+      type: object
+      properties:
+        user_id:
+          type: string
+        category:
+          type: string
+        phrase:
+          type: string
+
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
