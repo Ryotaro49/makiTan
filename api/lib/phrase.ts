@@ -49,7 +49,7 @@ function makeListPhraseQueryParams(params: {
     ExpressionAttributeValues: {
       ":user_id": params.user_id,
       ":category_phrase": `${params.category}/`,
-      ":is_passed": params.exclude_is_passed ? false : undefined,
+      ":is_passed": params.exclude_is_passed ? 0 : undefined,
     },
     Limit: params.limit,
   };

@@ -63,19 +63,10 @@ export function extractPathParameter(
 
 export function extractQueryParameter(
   event: APIGatewayProxyEvent,
-  paramName: string,
-  isRequired = true
-): string {
+  paramName: string
+): string | undefined {
   const param = event.queryStringParameters?.[paramName];
-  if (isRequired && !param) {
-    throw new Error(`${paramName} is required`);
-  }
-  return param ?? "";
-}
-
-export function extractQueryParameters<T>(event: APIGatewayProxyEvent): T {
-  const param = event.queryStringParameters || {};
-  return param as T;
+  return param;
 }
 
 export function extractBody<T>(event: APIGatewayProxyEvent): T {

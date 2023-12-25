@@ -5,7 +5,7 @@ import {
   createErrorResponseObject,
   createResponseObject,
   extractBody,
-  extractQueryParameters,
+  extractQueryParameter,
 } from "../lib/api-utils";
 import { ClientErrors } from "../types/errors";
 import {
@@ -26,13 +26,23 @@ export async function listPhraseHandler(
     const dbClient = createDynamoDbDocumentClient(
       process.env.DYNAMODB_TABLE_REGION
     );
-    const params = extractQueryParameters<ListPhraseRequestParams>(event);
+    const user_id = extractQueryParameter(event, "user_id");
+    const category = extractQueryParameter(event, "category");
+    if (!user_id) {
+      throw new ClientError(ClientErrors.USER_ID_IS_REQUIRED);
+    }
+    if (!category) {
+      throw new ClientError(ClientErrors.CATEGORY_IS_REQUIRED);
+    }
+    const exclude_is_passed =
+      extractQueryParameter(event, "exclude_is_passed") === "1" || undefined;
+    const limit = Number(extractQueryParameter(event, "limit")) || undefined;
 
     const records = await listPhrase(dbClient, {
-      user_id: params.user_id,
-      category: params.category,
-      exclude_is_passed: params.exclude_is_passed,
-      limit: params.limit,
+      user_id,
+      category,
+      exclude_is_passed,
+      limit,
     });
 
     const phrases = records?.map(convertPhraseRecordToModel) ?? [];
