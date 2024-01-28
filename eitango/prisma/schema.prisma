@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+
+// バージョン情報などのメタデータを格納するテーブル
+model Metadata {
+  id    Int    @id @default(autoincrement())
+  key   String @unique
+  value String
+
+  @@map("metadata")
+}
+
+
+// 単語を格納するテーブル
+model tango {
+  tango_id           Int      @id @default(autoincrement())
+  user_id            Int
+  phrase             String
+  meaning            String
+  category           String
+  registration_date  DateTime
+  updated_at         DateTime
+  is_passed          Int
+
+  // テーブル名はtango
+  @@map("tango")
+}

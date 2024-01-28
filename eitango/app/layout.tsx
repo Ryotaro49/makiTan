@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter';
 import { Noto_Sans_JP } from 'next/font/google'
+import Header from './Header';
 
 // 1. フォントの読み込み
 const NotoSansJP = Noto_Sans_JP({
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={NotoSansJP.className}>
         <AppRouterCacheProvider>
+        <Header></Header>
           {children}
         </AppRouterCacheProvider>
       </body>
