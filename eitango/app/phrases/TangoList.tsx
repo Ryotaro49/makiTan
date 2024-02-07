@@ -3,6 +3,7 @@ import { Button, Stack, TextField, Typography } from "@mui/material";
 import Link from 'next/link';
 import useSWR from "swr";
 import { Tango, zTangos } from "./type";
+import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 type Props = {
   initialState: Tango[];
@@ -14,30 +15,31 @@ const fetcher = (url: string) => fetch(url).then(async (res) => {
 });
 
 const TangoList: React.FC<Props> = ({ initialState }) => {
-  // 2. クライアントサイドでのデータ取得
-  const { data } = useSWR('/api/phrase', fetcher, { suspense: true, fallbackData: initialState })
-  return (
-    <div>
-      {data.map(tango => <TangoItem key={tango.tango_id} item={tango} />)}
-    </div>
-  )
-}
+  const { data } = useSWR('/api/phrase', fetcher, {
+    suspense: true,
+    fallbackData: initialState,
+  });
 
-type TangoProps = {
-  item: Tango;
-}
+  const columns: GridColDef[] = [
+    { field: 'tango_id', headerName: 'ID', flex: 1 },
+    { field: 'phrase', headerName: 'Phrase', flex: 1 },
+    { field: 'meaning', headerName: 'Meaning', flex: 1 },
+    // Add more columns as needed based on your data structure
+  ];
 
-const TangoItem: React.FC<TangoProps> = ({ item }) => {
+  if (!data) {
+    // Data is still loading
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div>
-      { /* ノート編集ページは未実装のため一覧ページに遷移 */ }
-      <Link href={`/phrases`}>
-      </Link>
-      { /* ノート詳細ページは未実装のため一覧ページに遷移 */ }
-      <Link href={`/phrases`} prefetch={false}>
-        <h3>{item.phrase}</h3>
-      </Link>
-      <p>{item.meaning}</p>
+    <div style={{ height: 400, width: '100%' }}>
+      <DataGrid
+        rows={data}
+        columns={columns}
+        checkboxSelection
+        getRowId={(row) => row.tango_id} // Specify tango_id as the id
+      />
     </div>
   );
 };
