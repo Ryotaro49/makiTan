@@ -2,12 +2,10 @@ import ErrorBoundary from '@/components/ErrorBoundary';
 import FetchError from '@/components/FetchError';
 import Loading from '@/components/Loading';
 import { apiUrl } from "@/constants/api";
-import Link from 'next/link';
 import { Suspense } from 'react';
 import "server-only";
 import TangoList from './TangoList';
 import { zTangos } from "./type";
-import phrase from './[phrase_id]/page';
 
 // 1. 静的/動的レンダリングや再生成の間隔を指定
 export const revalidate = 0;
