@@ -2,7 +2,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Link from 'next/link';
 import useSWR from "swr";
-import { Tango, zTangos } from "./type";
+import { Tango, zTangos } from "../app/phrases/type";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 type Props = {

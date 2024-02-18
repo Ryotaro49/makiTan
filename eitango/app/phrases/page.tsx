@@ -4,7 +4,7 @@ import Loading from '@/components/Loading';
 import { apiUrl } from "@/constants/api";
 import { Suspense } from 'react';
 import "server-only";
-import TangoList from './TangoList';
+import TangoList from '../../components/TangoList';
 import { zTangos } from "./type";
 
 // 1. 静的/動的レンダリングや再生成の間隔を指定
