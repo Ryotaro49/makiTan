@@ -1,6 +1,6 @@
-import { z } from 'zod';
+import { z } from "zod";
 
-export const zTango = z.object({
+export const zPhrase = z.object({
   tango_id: z.number().int(),
   user_id: z.number().int(),
   phrase: z.string(),
@@ -11,14 +11,14 @@ export const zTango = z.object({
   is_passed: z.number().int(),
 });
 
-export const zTangos = z.array(zTango);
+export const zPhrases = z.array(zPhrase);
 
-export const zUpsertTango = z.object({
+export const zUpsertPhrase = z.object({
   user_id: z.number().int(),
   phrase: z.string(),
   meaning: z.string(),
   category: z.string(),
 });
 
-export type Tango = z.infer<typeof zTango>;
-export type Tangos = z.infer<typeof zTangos>;
+export type zPhrase = z.infer<typeof zPhrase>;
+export type zPhrases = z.infer<typeof zPhrases>;

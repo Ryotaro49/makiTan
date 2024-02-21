@@ -30,7 +30,7 @@ async function main() {
         is_passed: 1,
       },
       {
-        user_id: 1,
+        user_id: 2,
         phrase: 'example2',
         meaning: '例文2の意味',
         category: 'example',

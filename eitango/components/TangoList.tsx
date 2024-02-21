@@ -2,16 +2,16 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Link from 'next/link';
 import useSWR from "swr";
-import { Tango, zTangos } from "../app/phrases/type";
+import { zPhrase, zPhrases } from "../app/phrases/type";
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import { useRouter } from "next/navigation";
 
 type Props = {
-  initialState: Tango[];
+  initialState: zPhrase[];
 }
 const fetcher = (url: string) => fetch(url).then(async (res) => {
   const data = await res.json();
-  const phrases = zTangos.parse(data);
+  const phrases = zPhrases.parse(data);
   return phrases;
 });
 
@@ -22,8 +22,8 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   });
   const router = useRouter();
 
-  const handleEditButtonClick = (tango: Tango) => {
-    router.push(`/phrases/${tango.tango_id}`);
+  const handleEditButtonClick = (Phrase: zPhrase) => {
+    router.push(`/phrases/${Phrase.tango_id}`);
   };
 
   const columns: GridColDef[] = [
@@ -38,7 +38,7 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleEditButtonClick(params.row as Tango)} // 編集ボタンがクリックされたときの処理
+          onClick={() => handleEditButtonClick(params.row as zPhrase)} // 編集ボタンがクリックされたときの処理
         >
           Edit
         </Button>
