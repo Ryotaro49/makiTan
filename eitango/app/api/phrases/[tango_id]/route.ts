@@ -28,3 +28,10 @@ export async function PUT(
   });
   return new NextResponse(null, { status: 204 });
 }
+
+export async function DELETE(req: NextRequest, { params }: { params: { tango_id: number } }) {
+  const phrase = await prisma.tango.delete({
+    where: { tango_id: Number(params.tango_id) },
+  });
+  return new NextResponse(null, { status: 204 })
+}

@@ -10,7 +10,7 @@ type Props = {
 
 const Phrase: React.FC<Props> = ({ item }) => {
   const router = useRouter();
-  const deleteNote = useCallback(async () => {
+  const deletePhrase = useCallback(async () => {
     const res = await fetch(`/api/phrases/${item.tango_id}`, {
       method: "DELETE",
       headers: {
@@ -18,7 +18,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
       },
     });
     if (res.ok) {
-      alert("Note deleted");
+      alert("単語を削除しました。");
       router.push(`/phrases`);
       router.refresh();
     } else {
@@ -35,7 +35,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
 
       <div className="flex flex-col sm:flex-row sm:justify-end gap-2.5">
         <button
-          onClick={deleteNote}
+          onClick={deletePhrase}
           className="inline-block bg-gray-200 hover:bg-gray-300 focus-visible:ring ring-pink-300 text-red-500 active:text-red-700 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-2"
         >
           Delete
