@@ -4,9 +4,10 @@ import Loading from "@/components/Loading";
 import { apiUrl } from "@/constants/api";
 import { Suspense } from "react";
 import "server-only";
-import TangoList from "../../components/TangoList";
+import TangoList from "../../components/parts/TangoList";
 import { zPhrases } from "./type";
-import { Link } from "react-router-dom";
+import { Button } from "@mui/material";
+import Link from "next/link";
 
 // 1. 静的/動的レンダリングや再生成の間隔を指定
 export const revalidate = 0;
@@ -24,6 +25,11 @@ export default async function Page() {
       {/* 3. Client ComponentsのSuspenseの使用 */}
       <ErrorBoundary fallback={<FetchError />}>
         <Suspense fallback={<Loading />}>
+          <Link href="/phrases/new">
+            <Button variant="outlined" size="large">
+              追加
+            </Button>
+          </Link>
           <TangoList initialState={phrases} />
         </Suspense>
       </ErrorBoundary>
