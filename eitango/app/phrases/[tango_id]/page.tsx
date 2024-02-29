@@ -12,7 +12,6 @@ export async function generateMetadata({
 }: {
   params: { tango_id: number };
 }): Promise<Metadata> {
-  console.log(params.tango_id);
   const phrase = await getPhrase(params.tango_id);
   return { title: phrase.phrase };
 }
