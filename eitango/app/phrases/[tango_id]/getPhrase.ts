@@ -7,7 +7,6 @@ export const getPhrase = async (tango_id: number) => {
     cache: "no-store",
   });
   const data = await res.json();
-  console.log(data);
   const tango = zPhrase.parse(data);
   return tango;
 };
