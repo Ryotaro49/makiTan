@@ -1,18 +1,22 @@
 import { zUpsertPhrase } from "@/app/phrases/type";
 import { prisma } from "@/globals/db";
 import { NextRequest, NextResponse } from "next/server";
+import { date } from "zod";
 
 // 単語のIDはパスパラメーター`[id]`で受け取る
 
 // 単語を1件取得
-export async function GET(_req: NextRequest, { params }: {params :{tango_id : number} }) {
+export async function GET(
+  _req: NextRequest,
+  { params }: { params: { tango_id: number } }
+) {
   const phrase = await prisma.tango.findUnique({
     where: { tango_id: Number(params.tango_id) },
   });
   if (phrase === null) {
-    return new NextResponse(null, { status: 404 })
+    return new NextResponse(null, { status: 404 });
   }
-  return NextResponse.json(phrase)
+  return NextResponse.json(phrase);
 }
 
 // 単語を更新
@@ -29,9 +33,12 @@ export async function PUT(
   return new NextResponse(null, { status: 204 });
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { tango_id: number } }) {
+export async function DELETE(
+  req: NextRequest,
+  { params }: { params: { tango_id: number } }
+) {
   const phrase = await prisma.tango.delete({
     where: { tango_id: Number(params.tango_id) },
   });
-  return new NextResponse(null, { status: 204 })
+  return new NextResponse(null, { status: 204 });
 }
