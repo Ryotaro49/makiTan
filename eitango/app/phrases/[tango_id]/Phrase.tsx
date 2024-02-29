@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { zPhrase } from "../type";
+import { Box, Button, Paper, TextField, Typography } from "@mui/material";
 
 type Props = {
   item: zPhrase;
@@ -10,6 +11,8 @@ type Props = {
 
 const Phrase: React.FC<Props> = ({ item }) => {
   const router = useRouter();
+  const [updatedPhrase, setUpdatedPhrase] = useState(item.phrase);
+  const [updatedMeaning, setUpdatedMeaning] = useState(item.meaning);
   const deletePhrase = useCallback(async () => {
     const res = await fetch(`/api/phrases/${item.tango_id}`, {
       method: "DELETE",
@@ -25,23 +28,55 @@ const Phrase: React.FC<Props> = ({ item }) => {
       alert("Note failed to delete");
     }
   }, [item.tango_id, router]);
+  const updatePhrase = useCallback(async () => {
+    const res = await fetch(`/api/phrases/${item.tango_id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        phrase: updatedPhrase,
+        meaning: updatedMeaning,
+      }),
+    });
+    if (res.ok) {
+      alert("単語を更新しました。");
+    } else {
+      alert("更新に失敗しました。");
+    }
+  }, [item.tango_id, updatedPhrase, updatedMeaning]);
 
   return (
-    <div className="flex flex-col bg-gray-100 rounded-lg relative p-5 gap-2.5">
-      <h3 className="text-pink-500 text-lg md:text-xl font-semibold break-all">
-        {item.phrase}
-      </h3>
-      <p className="text-gray-500 break-all">{item.meaning}</p>
-
-      <div className="flex flex-col sm:flex-row sm:justify-end gap-2.5">
-        <button
-          onClick={deletePhrase}
-          className="inline-block bg-gray-200 hover:bg-gray-300 focus-visible:ring ring-pink-300 text-red-500 active:text-red-700 text-sm md:text-base font-semibold text-center rounded-lg outline-none transition duration-100 px-8 py-2"
-        >
-          Delete
-        </button>
-      </div>
-    </div>
+    <Box
+      my={4}
+      display="flex"
+      flexDirection={"column"}
+      alignItems="center"
+      gap={4}
+      p={2}
+      sx={{ border: "2px solid grey" }}
+    >
+      <Typography>{item.phrase}</Typography>
+      <TextField
+        value={updatedPhrase}
+        onChange={(e) => setUpdatedPhrase(e.target.value)}
+        label="単語"
+      />
+      <Typography>{item.meaning}</Typography>
+      <TextField
+        value={updatedMeaning}
+        onChange={(e) => setUpdatedMeaning(e.target.value)}
+        label="意味"
+      />
+      <Box sx={{ display: "flex", gap: 5 }}>
+        <Button onClick={updatePhrase} variant="outlined">
+          更新
+        </Button>
+        <Button onClick={deletePhrase} variant="outlined">
+          削除
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
