@@ -30,7 +30,7 @@ model tango {
   category           String
   registration_date  DateTime
   updated_at         DateTime
-  is_passed          Int
+  is_passed          Boolean
 
   // テーブル名はtango
   @@map("tango")
