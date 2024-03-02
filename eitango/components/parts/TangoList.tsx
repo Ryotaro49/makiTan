@@ -25,15 +25,15 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
 
   const handleEditButtonClick = (Phrase: zPhrase) => {
     router.push(`/phrases/${Phrase.tango_id}`);
+    router.refresh();
   };
 
   const columns: GridColDef[] = [
-    { field: "tango_id", headerName: "ID", flex: 1 },
-    { field: "phrase", headerName: "Phrase", flex: 1 },
-    { field: "meaning", headerName: "Meaning", flex: 1 },
+    { field: "phrase", headerName: "単語", flex: 1 },
+    { field: "meaning", headerName: "意味", flex: 1 },
     {
       field: "edit",
-      headerName: "Edit", // ヘッダーに表示されるテキスト
+      headerName: "編集", // ヘッダーに表示されるテキスト
       flex: 1,
       renderCell: (params) => (
         <Button

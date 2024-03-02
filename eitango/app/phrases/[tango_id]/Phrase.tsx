@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { zPhrase } from "../type";
@@ -13,6 +12,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
   const router = useRouter();
   const [updatedPhrase, setUpdatedPhrase] = useState(item.phrase);
   const [updatedMeaning, setUpdatedMeaning] = useState(item.meaning);
+  const [updatedCategory, setUpdatedCategory] = useState(item.category);
   const deletePhrase = useCallback(async () => {
     const res = await fetch(`/api/phrases/${item.tango_id}`, {
       method: "DELETE",
@@ -28,6 +28,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
       alert("Note failed to delete");
     }
   }, [item.tango_id, router]);
+
   const updatePhrase = useCallback(async () => {
     const res = await fetch(`/api/phrases/${item.tango_id}`, {
       method: "PUT",
@@ -35,8 +36,10 @@ const Phrase: React.FC<Props> = ({ item }) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        user_id: item.user_id,
         phrase: updatedPhrase,
         meaning: updatedMeaning,
+        category: updatedCategory,
       }),
     });
     if (res.ok) {
@@ -44,7 +47,13 @@ const Phrase: React.FC<Props> = ({ item }) => {
     } else {
       alert("更新に失敗しました。");
     }
-  }, [item.tango_id, updatedPhrase, updatedMeaning]);
+  }, [
+    item.tango_id,
+    item.user_id,
+    updatedPhrase,
+    updatedMeaning,
+    updatedCategory,
+  ]);
 
   return (
     <Box
@@ -56,17 +65,20 @@ const Phrase: React.FC<Props> = ({ item }) => {
       p={2}
       sx={{ border: "2px solid grey" }}
     >
-      <Typography>{item.phrase}</Typography>
       <TextField
         value={updatedPhrase}
         onChange={(e) => setUpdatedPhrase(e.target.value)}
         label="単語"
       />
-      <Typography>{item.meaning}</Typography>
       <TextField
         value={updatedMeaning}
         onChange={(e) => setUpdatedMeaning(e.target.value)}
         label="意味"
+      />
+      <TextField
+        value={updatedCategory}
+        onChange={(e) => setUpdatedCategory(e.target.value)}
+        label="品詞"
       />
       <Box sx={{ display: "flex", gap: 5 }}>
         <Button onClick={updatePhrase} variant="outlined">

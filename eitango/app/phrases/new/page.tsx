@@ -9,6 +9,11 @@ export default function Home() {
   return (
     <main>
       <Suspense fallback={<Loading />}>
+        <Link href="/phrases">
+          <Button variant="outlined" size="large">
+            ← back
+          </Button>
+        </Link>
         <NewPhrase />
       </Suspense>
     </main>
