@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Stack, TextField, Typography } from "@mui/material";
 import Link from "next/link";
-import TestConfigModal from "./Client/TestConfigModal";
+import TestConfigModal from "../components/parts/TestConfigModal";
 
 export default function Home() {
   return (
