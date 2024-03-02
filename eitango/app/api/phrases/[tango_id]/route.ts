@@ -22,13 +22,14 @@ export async function GET(
 // 単語を更新
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: { tango_id: number } }
 ) {
   const data = await req.json();
-  const parcedData = zUpsertPhrase.parse(data);
+
+  const pacedData = zUpsertPhrase.parse(data);
   const phrase = await prisma.tango.update({
-    where: { tango_id: Number(params.id) },
-    data: { phrase: parcedData.phrase, meaning: parcedData.meaning },
+    where: { tango_id: Number(params.tango_id) },
+    data: { phrase: pacedData.phrase, meaning: pacedData.meaning },
   });
   return new NextResponse(null, { status: 204 });
 }
