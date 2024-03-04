@@ -24,7 +24,7 @@ export async function POST(req: NextRequest) {
       category: parcedData.category,
       registration_date: new Date(),
       updated_at: new Date(),
-      is_passed: 0,
+      is_passed: false,
     },
   });
   return new NextResponse(`${phrase.tango_id}`, { status: 201 });

@@ -8,7 +8,7 @@ export const zPhrase = z.object({
   category: z.string(),
   registration_date: z.string().datetime(),
   updated_at: z.string().datetime(),
-  is_passed: z.number().int(),
+  is_passed: z.boolean(),
 });
 
 export const zPhrases = z.array(zPhrase);
