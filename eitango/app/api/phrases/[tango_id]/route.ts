@@ -27,9 +27,13 @@ export async function PUT(
   const data = await req.json();
 
   const pacedData = zUpsertPhrase.parse(data);
-  const phrase = await prisma.tango.update({
+  await prisma.tango.update({
     where: { tango_id: Number(params.tango_id) },
-    data: { phrase: pacedData.phrase, meaning: pacedData.meaning },
+    data: {
+      phrase: pacedData.phrase,
+      meaning: pacedData.meaning,
+      is_passed: pacedData.is_passed,
+    },
   });
   return new NextResponse(null, { status: 204 });
 }
