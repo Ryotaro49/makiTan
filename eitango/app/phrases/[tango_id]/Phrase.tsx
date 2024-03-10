@@ -40,6 +40,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
         phrase: updatedPhrase,
         meaning: updatedMeaning,
         category: updatedCategory,
+        is_passed: item.is_passed,
       }),
     });
     if (res.ok) {
@@ -53,6 +54,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
     updatedPhrase,
     updatedMeaning,
     updatedCategory,
+    item.is_passed,
   ]);
 
   return (
