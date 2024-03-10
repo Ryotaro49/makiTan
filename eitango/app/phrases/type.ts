@@ -18,6 +18,7 @@ export const zUpsertPhrase = z.object({
   phrase: z.string(),
   meaning: z.string(),
   category: z.string(),
+  is_passed: z.boolean(),
 });
 
 export type zPhrase = z.infer<typeof zPhrase>;
