@@ -21,6 +21,7 @@ const NewPhrase: React.FC = () => {
         phrase: phrase,
         meaning: meaning,
         category: category,
+        is_passed: false,
       }),
       headers: {
         "Content-Type": "application/json",
