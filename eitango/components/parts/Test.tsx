@@ -26,7 +26,9 @@ const Test: React.FC<Props> = ({ initialState }) => {
         ? phrases.filter((phrase) => !phrase.is_passed)
         : phrases;
       // selectedValueで選択した数で問題数を絞り込む
-      filteredPhrases = filteredPhrases.slice(0, parseInt(selectedValue));
+      filteredPhrases = selectedValue
+        ? filteredPhrases.slice(0, parseInt(selectedValue))
+        : filteredPhrases;
       if (filteredPhrases.length === 0) {
         alert("覚えていない単語がありません。");
         setShowTestContent(false);
@@ -95,7 +97,6 @@ const Test: React.FC<Props> = ({ initialState }) => {
       </Box>
       {showTestContent && (
         <React.Fragment>
-          {/* TestConfigからの戻り値がある場合に表示するコンテンツ */}
           <Box
             boxShadow={8}
             border={1}
