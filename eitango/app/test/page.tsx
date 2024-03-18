@@ -4,7 +4,6 @@ import { Box, Button } from "@mui/material";
 import Link from "next/link";
 import { zPhrases } from "../phrases/type";
 import Test from "@/components/parts/Test";
-import TestConfigModal from "@/components/parts/TestConfigModal";
 
 export default async function Page() {
   // 2. APIを用いたデータ取得
