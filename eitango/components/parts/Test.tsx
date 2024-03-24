@@ -10,34 +10,11 @@ type Props = {
 };
 
 const Test: React.FC<Props> = ({ initialState }) => {
-  const [showTestContent, setShowTestContent] = React.useState(false);
   const [phrases, setPhrases] = React.useState(initialState);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [showMeaning, setShowMeaning] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const [rememberedCount, setRememberedCount] = React.useState(0);
-
-  const handleTestConfigSubmit = async (
-    selectedValue: string,
-    isPassed: boolean
-  ) => {
-    setPhrases((phrases) => {
-      let filteredPhrases = isPassed
-        ? phrases.filter((phrase) => !phrase.is_passed)
-        : phrases;
-      // selectedValueで選択した数で問題数を絞り込む
-      filteredPhrases = selectedValue
-        ? filteredPhrases.slice(0, parseInt(selectedValue))
-        : filteredPhrases;
-      if (filteredPhrases.length === 0) {
-        alert("覚えていない単語がありません。");
-        setShowTestContent(false);
-      } else {
-        setShowTestContent(true);
-      }
-      return filteredPhrases;
-    });
-  };
 
   const handleRememberedClick = async (value: Boolean) => {
     const res = await fetch(`/api/phrases/${phrases[currentIndex].tango_id}`, {
@@ -92,57 +69,52 @@ const Test: React.FC<Props> = ({ initialState }) => {
       direction="column"
       gap={10}
     >
-      <Box>
-        {!showTestContent && <TestConfig onSubmit={handleTestConfigSubmit} />}
-      </Box>
-      {showTestContent && (
-        <React.Fragment>
-          <Box
-            boxShadow={8}
-            border={1}
-            p={4}
-            fontSize={30}
-            width={300}
-            onClick={handleBoxClick}
-            sx={{ cursor: "pointer" }}
+      <React.Fragment>
+        <Box
+          boxShadow={8}
+          border={1}
+          p={4}
+          fontSize={30}
+          width={300}
+          onClick={handleBoxClick}
+          sx={{ cursor: "pointer" }}
+        >
+          {showMeaning
+            ? phrases[currentIndex].meaning
+            : phrases[currentIndex].phrase}
+        </Box>
+        <Box>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleRememberedClick(true)}
+            sx={{ mr: 10 }}
+            size="large"
           >
-            {showMeaning
-              ? phrases[currentIndex].meaning
-              : phrases[currentIndex].phrase}
-          </Box>
-          <Box>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleRememberedClick(true)}
-              sx={{ mr: 10 }}
-              size="large"
-            >
-              覚えた
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleRememberedClick(false)}
-              size="large"
-            >
-              覚えてない
-            </Button>
-          </Box>
-          <Modal
-            open={openModal}
-            onClose={handleCloseModal}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
+            覚えた
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => handleRememberedClick(false)}
+            size="large"
           >
-            <Box sx={style}>
-              <h2 id="modal-title">テスト終了</h2>
-              <p id="modal-description">{rememberedCount}単語覚えました。</p>
-              <Button onClick={handleCloseModal}>閉じる</Button>
-            </Box>
-          </Modal>
-        </React.Fragment>
-      )}
+            覚えてない
+          </Button>
+        </Box>
+        <Modal
+          open={openModal}
+          onClose={handleCloseModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+        >
+          <Box sx={style}>
+            <h2 id="modal-title">テスト終了</h2>
+            <p id="modal-description">{rememberedCount}単語覚えました。</p>
+            <Button onClick={handleCloseModal}>閉じる</Button>
+          </Box>
+        </Modal>
+      </React.Fragment>
     </Grid>
   );
 };

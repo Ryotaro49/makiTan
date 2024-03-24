@@ -1,14 +1,32 @@
 import { zUpsertPhrase } from "@/app/phrases/type";
 import { prisma } from "@/globals/db";
+import { listItemTextClasses } from "@mui/material";
+import { tango } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 // 1. 動的レンダリングを強制する
 export const dynamic = "force-dynamic";
 
-// 2. 一覧を取得するAPI
-export async function GET() {
-  // 3. DBから一覧を取得
-  const phrases = await prisma.tango.findMany();
+export async function GET(req: NextRequest) {
+  const params = new URL(req.nextUrl).searchParams;
+  const checked = params.get("checked");
+  const selectedValue = params.get("selectedValue");
+
+  const filterOptions = {};
+
+  if (checked !== "false") {
+    Object.assign(filterOptions, {
+      where: { is_passed: false },
+    });
+  }
+
+  if (selectedValue) {
+    Object.assign(filterOptions, {
+      take: Number(selectedValue),
+    });
+  }
+
+  const phrases = await prisma.tango.findMany(filterOptions);
   return NextResponse.json(phrases);
 }
 
