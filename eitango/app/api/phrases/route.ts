@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
 
   const filterOptions = {};
 
-  if (unPassedOnlyChecked !== "false") {
+  if (unPassedOnlyChecked == "true") {
     Object.assign(filterOptions, {
       where: { is_passed: false },
     });
@@ -33,13 +33,13 @@ export async function GET(req: NextRequest) {
 // 新規登録するAPI
 export async function POST(req: NextRequest) {
   const data = await req.json();
-  const parcedData = zUpsertPhrase.parse(data);
+  const parsedData = zUpsertPhrase.parse(data);
   const phrase = await prisma.tango.create({
     data: {
-      phrase: parcedData.phrase,
-      meaning: parcedData.meaning,
-      user_id: parcedData.user_id,
-      category: parcedData.category,
+      phrase: parsedData.phrase,
+      meaning: parsedData.meaning,
+      user_id: parsedData.user_id,
+      category: parsedData.category,
       registration_date: new Date(),
       updated_at: new Date(),
       is_passed: false,
