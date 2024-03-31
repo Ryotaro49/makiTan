@@ -2,8 +2,6 @@
 import * as React from "react";
 import { zPhrase } from "@/app/phrases/type";
 import { Button, Box, Modal, Grid } from "@mui/material";
-import TestConfig from "./TestConfig";
-import { Router } from "react-router-dom";
 
 type Props = {
   initialState: zPhrase[];

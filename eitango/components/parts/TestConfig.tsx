@@ -26,16 +26,16 @@ const style = {
 };
 
 const TestConfig: React.FC = () => {
-  const [selectedValue, setSelectedValue] = React.useState<string>("10");
-  const [checked, setChecked] = React.useState(false);
+  const [questionsCount, setQuestionsCount] = React.useState<string>("10");
+  const [unPassedOnlyChecked, setUnPassedOnlyChecked] = React.useState(false);
   const router = useRouter();
 
   const handleRadioChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedValue(event.target.value);
+    setQuestionsCount(event.target.value);
   };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
+    setUnPassedOnlyChecked(event.target.checked);
   };
 
   return (
@@ -44,7 +44,7 @@ const TestConfig: React.FC = () => {
         <Typography id="modal-modal-title" variant="h6" component="h2">
           テスト設定
         </Typography>
-        <RadioGroup value={selectedValue} onChange={handleRadioChange} row>
+        <RadioGroup value={questionsCount} onChange={handleRadioChange} row>
           <FormControlLabel value="10" control={<Radio />} label="10問" />
           <FormControlLabel value="20" control={<Radio />} label="20問" />
           <FormControlLabel value="30" control={<Radio />} label="30問" />
@@ -53,7 +53,7 @@ const TestConfig: React.FC = () => {
           <FormControlLabel
             control={
               <Checkbox
-                checked={checked}
+                checked={unPassedOnlyChecked}
                 onChange={handleCheckboxChange}
                 value="True"
               />
@@ -61,7 +61,9 @@ const TestConfig: React.FC = () => {
             label="覚えていないものだけ"
           />
         </FormGroup>
-        <Link href={`/test?checked=${checked}&selectedValue=${selectedValue}`}>
+        <Link
+          href={`/test?unPassedOnlyChecked=${unPassedOnlyChecked}&questionsCount=${questionsCount}`}
+        >
           <Button variant="contained" color="primary">
             テスト開始
           </Button>

@@ -9,12 +9,12 @@ export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
   const params = new URL(req.nextUrl).searchParams;
-  const checked = params.get("checked");
+  const unPassedOnlyChecked = params.get("unPassedOnlyChecked");
   const selectedValue = params.get("selectedValue");
 
   const filterOptions = {};
 
-  if (checked !== "false") {
+  if (unPassedOnlyChecked !== "false") {
     Object.assign(filterOptions, {
       where: { is_passed: false },
     });
