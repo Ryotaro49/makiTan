@@ -7,10 +7,12 @@ import Test from "@/components/parts/Test";
 export const getPhrases = async (
   unPassedOnlyChecked: string,
   questionsCount: string,
+  category: string,
 ) => {
   const url = new URL(`${apiUrl}/phrases`);
   url.searchParams.append("unPassedOnlyChecked", unPassedOnlyChecked);
   url.searchParams.append("questionsCount", questionsCount);
+  url.searchParams.append("category", category);
 
   const res = await fetch(url.toString(), { cache: "no-store" });
   const data = await res.json();
@@ -21,10 +23,18 @@ export const getPhrases = async (
 export default async function TestPage({
   searchParams,
 }: {
-  searchParams: { unPassedOnlyChecked: string; questionsCount: string };
+  searchParams: {
+    unPassedOnlyChecked: string;
+    questionsCount: string;
+    category: string;
+  };
 }) {
-  const { unPassedOnlyChecked, questionsCount } = searchParams;
-  const phrases = await getPhrases(unPassedOnlyChecked, questionsCount);
+  const { unPassedOnlyChecked, questionsCount, category } = searchParams;
+  const phrases = await getPhrases(
+    unPassedOnlyChecked,
+    questionsCount,
+    category,
+  );
 
   return (
     <main>

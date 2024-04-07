@@ -11,6 +11,7 @@ export async function GET(req: NextRequest) {
   const params = new URL(req.nextUrl).searchParams;
   const unPassedOnlyChecked = params.get("unPassedOnlyChecked");
   const selectedValue = params.get("selectedValue");
+  const category = params.get("category");
 
   const filterOptions = {};
 
@@ -23,6 +24,12 @@ export async function GET(req: NextRequest) {
   if (selectedValue) {
     Object.assign(filterOptions, {
       take: Number(selectedValue),
+    });
+  }
+
+  if (category) {
+    Object.assign(filterOptions, {
+      where: { category },
     });
   }
 

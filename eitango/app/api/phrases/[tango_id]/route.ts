@@ -8,7 +8,7 @@ import { date } from "zod";
 // 単語を1件取得
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { tango_id: number } }
+  { params }: { params: { tango_id: number } },
 ) {
   const phrase = await prisma.tango.findUnique({
     where: { tango_id: Number(params.tango_id) },
@@ -22,7 +22,7 @@ export async function GET(
 // 単語を更新
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { tango_id: number } }
+  { params }: { params: { tango_id: number } },
 ) {
   const data = await req.json();
 
@@ -32,6 +32,7 @@ export async function PUT(
     data: {
       phrase: pacedData.phrase,
       meaning: pacedData.meaning,
+      category: pacedData.category,
       is_passed: pacedData.is_passed,
     },
   });
@@ -40,7 +41,7 @@ export async function PUT(
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { tango_id: number } }
+  { params }: { params: { tango_id: number } },
 ) {
   const phrase = await prisma.tango.delete({
     where: { tango_id: Number(params.tango_id) },

@@ -2,7 +2,15 @@
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { zPhrase } from "../type";
-import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Checkbox,
+  FormControlLabel,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 
 type Props = {
   item: zPhrase;
@@ -13,6 +21,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
   const [updatedPhrase, setUpdatedPhrase] = useState(item.phrase);
   const [updatedMeaning, setUpdatedMeaning] = useState(item.meaning);
   const [updatedCategory, setUpdatedCategory] = useState(item.category);
+  const [updatedIs_passed, setUpdatedIs_passed] = useState(item.is_passed);
   const deletePhrase = useCallback(async () => {
     const res = await fetch(`/api/phrases/${item.tango_id}`, {
       method: "DELETE",
@@ -40,7 +49,7 @@ const Phrase: React.FC<Props> = ({ item }) => {
         phrase: updatedPhrase,
         meaning: updatedMeaning,
         category: updatedCategory,
-        is_passed: item.is_passed,
+        is_passed: updatedIs_passed,
       }),
     });
     if (res.ok) {
@@ -54,8 +63,15 @@ const Phrase: React.FC<Props> = ({ item }) => {
     updatedPhrase,
     updatedMeaning,
     updatedCategory,
-    item.is_passed,
+    updatedIs_passed,
   ]);
+
+  const handleCheckboxChange = (event: {
+    target: { checked: boolean | ((prevState: boolean) => boolean) };
+  }) => {
+    // チェックボックスの新しい値を取得し、状態を更新
+    setUpdatedIs_passed(event.target.checked);
+  };
 
   return (
     <Box
@@ -81,6 +97,15 @@ const Phrase: React.FC<Props> = ({ item }) => {
         value={updatedCategory}
         onChange={(e) => setUpdatedCategory(e.target.value)}
         label="品詞"
+      />
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={updatedIs_passed}
+            onChange={handleCheckboxChange} // チェックボックスの状態が変更されたときに呼び出されるハンドラー
+          />
+        }
+        label="覚えた"
       />
       <Box sx={{ display: "flex", gap: 5 }}>
         <Button onClick={updatePhrase} variant="outlined">

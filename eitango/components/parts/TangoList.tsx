@@ -1,10 +1,11 @@
 "use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Link from "next/link";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { zPhrase, zPhrases } from "../../app/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 type Props = {
   initialState: zPhrase[];
@@ -21,6 +22,7 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
     suspense: true,
     fallbackData: initialState,
   });
+
   const router = useRouter();
 
   const handleEditButtonClick = (Phrase: zPhrase) => {
@@ -31,6 +33,15 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   const columns: GridColDef[] = [
     { field: "phrase", headerName: "単語", flex: 1 },
     { field: "meaning", headerName: "意味", flex: 1 },
+    { field: "category", headerName: "品詞", flex: 1 },
+    {
+      field: "is_passed",
+      headerName: "覚えた",
+      flex: 1,
+      renderCell: (params) => (
+        <Typography>{params.value ? "〇" : ""}</Typography>
+      ),
+    },
     {
       field: "edit",
       headerName: "編集", // ヘッダーに表示されるテキスト
@@ -46,7 +57,6 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
       ),
     },
   ];
-
   if (!data) {
     // Data is still loading
     return <div>Loading...</div>;
