@@ -1,7 +1,8 @@
 "use client";
 import * as React from "react";
 import { zPhrase } from "@/app/phrases/type";
-import { Button, Box, Modal, Grid } from "@mui/material";
+import { Button, Box, Modal, Grid, Stack } from "@mui/material";
+import TestResult from "./TestResult";
 
 type Props = {
   initialState: zPhrase[];
@@ -13,8 +14,32 @@ const Test: React.FC<Props> = ({ initialState }) => {
   const [showMeaning, setShowMeaning] = React.useState(false);
   const [openModal, setOpenModal] = React.useState(false);
   const [rememberedCount, setRememberedCount] = React.useState(0);
+  const [resultMessage, setResultMessage] = React.useState("");
+  const percentage = (rememberedCount / phrases.length) * 100;
+
+  // コンポーネントがマウントされたときにメッセージを設定
+  React.useEffect(() => {
+    // メッセージを設定する関数
+    const setMessageBasedOnPercentage = () => {
+      if (percentage >= 80) {
+        setResultMessage("Excellent! すばらしい成績です！");
+      } else if (percentage >= 60) {
+        setResultMessage("Good job! よくできました！");
+      } else {
+        setResultMessage("Keep going! 頑張ってください！");
+      }
+    };
+
+    setMessageBasedOnPercentage();
+  }, [percentage]);
 
   const handleRememberedClick = async (value: Boolean) => {
+    const updatedPhrases = [...phrases];
+    // is_passed フィールドを更新
+    updatedPhrases[currentIndex] = {
+      ...updatedPhrases[currentIndex],
+      is_passed: value as boolean,
+    };
     const res = await fetch(`/api/phrases/${phrases[currentIndex].tango_id}`, {
       method: "PUT",
       headers: {
@@ -28,6 +53,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
         is_passed: value,
       }),
     });
+
     value ? setRememberedCount((prev) => prev + 1) : null;
     if (currentIndex === phrases.length - 1) {
       setOpenModal(true); // 最後の単語が表示されたらモーダルを開く
@@ -44,6 +70,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
     setOpenModal(false);
     setCurrentIndex(0); // モーダルを閉じたら最初の単語から再開する
     setRememberedCount(0); // 覚えた単語のカウントをリセットする
+    window.location.reload(); // ページをリフレッシュ
   };
 
   const style = {
@@ -107,9 +134,17 @@ const Test: React.FC<Props> = ({ initialState }) => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <h2 id="modal-title">テスト終了</h2>
-            <p id="modal-description">{rememberedCount}単語覚えました。</p>
-            <Button onClick={handleCloseModal}>閉じる</Button>
+            <Stack spacing={2}>
+              <Box fontSize={30} id="modal-title">
+                テスト終了
+              </Box>
+              <Box>{resultMessage}</Box>
+              <Box id="modal-description">
+                {phrases.length}単語中{rememberedCount}単語覚えました！
+              </Box>
+              <TestResult initialState={phrases}></TestResult>
+              <Button onClick={handleCloseModal}>閉じる</Button>
+            </Stack>
           </Box>
         </Modal>
       </React.Fragment>
