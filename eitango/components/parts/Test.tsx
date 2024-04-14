@@ -33,13 +33,14 @@ const Test: React.FC<Props> = ({ initialState }) => {
     setMessageBasedOnPercentage();
   }, [percentage]);
 
-  const handleRememberedClick = async (value: Boolean) => {
-    const updatedPhrases = [...phrases];
-    // is_passed フィールドを更新
-    updatedPhrases[currentIndex] = {
-      ...updatedPhrases[currentIndex],
-      is_passed: value as boolean,
-    };
+  const handleRememberedClick = async (value: boolean) => {
+    setPhrases((prevPhrases) => {
+      prevPhrases[currentIndex] = {
+        ...prevPhrases[currentIndex],
+        is_passed: value,
+      };
+      return [...prevPhrases];
+    });
     const res = await fetch(`/api/phrases/${phrases[currentIndex].tango_id}`, {
       method: "PUT",
       headers: {
