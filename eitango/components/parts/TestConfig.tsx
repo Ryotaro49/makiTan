@@ -63,7 +63,7 @@ const TestConfig: React.FC = () => {
           <Select
             labelId="questions-count"
             id="category"
-            value={category}
+            value={questionsCount}
             onChange={handleQuestionCountChange}
           >
             <MenuItem value="10">10問</MenuItem>
