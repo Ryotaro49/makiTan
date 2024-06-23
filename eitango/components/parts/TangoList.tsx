@@ -18,7 +18,7 @@ const fetcher = (url: string) =>
   });
 
 const TangoList: React.FC<Props> = ({ initialState }) => {
-  const { data } = useSWR("/api/phrase", fetcher, {
+  const { data } = useSWR("/api/phrases", fetcher, {
     suspense: true,
     fallbackData: initialState,
   });
