@@ -43,7 +43,10 @@ export default async function Page() {
 }
 
 export const getPhrases = async () => {
-  const res = await fetch(`${apiUrl}/phrases`, { cache: "no-store" });
+  const res = await fetch(`${apiUrl}/phrases`, {
+    cache: "no-store",
+    credentials: "include",
+  });
   const data = await res.json();
   const phrases = zPhrases.parse(data);
   return phrases;
