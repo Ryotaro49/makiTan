@@ -11,7 +11,7 @@ const SECRET_KEY = process.env.SECRET_KEY ?? ""; // 環境変数からSECRET_KEY
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
+    const { email, password, rememberMe } = await req.json();
 
     if (!email || !password) {
       return NextResponse.json(
@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     // 認証成功 - トークンを生成してクッキーに保存
     const token = jwt.sign({ userId: user.user_id }, SECRET_KEY, {
-      expiresIn: "1h", // トークンの有効期限を1時間に設定
+      expiresIn: rememberMe ? "30d" : "1h", // rememberMe が true なら30日、false なら1時間
     });
 
     const response = NextResponse.json({
@@ -54,8 +54,7 @@ export async function POST(req: NextRequest) {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production",
       secure: false,
-      maxAge: 60 * 60, // 1時間 (秒単位)
-      path: "/",
+      maxAge: rememberMe ? 30 * 24 * 60 * 60 : 60 * 60, // rememberMe が true なら30日、false なら1時間 (秒単位)
     });
 
     return response;

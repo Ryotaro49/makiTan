@@ -17,6 +17,13 @@ import LoginField from "@/components/parts/LoginField";
 
 export default function SignIn() {
   const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
+
+  const handleRememberMeChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    setRememberMe(event.target.checked);
+  };
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -30,7 +37,7 @@ export default function SignIn() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, rememberMe }),
       });
 
       if (!res.ok) {
@@ -70,7 +77,13 @@ export default function SignIn() {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <LoginField />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={
+              <Checkbox
+                value="remember"
+                color="primary"
+                onChange={handleRememberMeChange}
+              />
+            }
             label="ログイン状態を保持する"
           />
           <Button
