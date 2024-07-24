@@ -52,7 +52,8 @@ export async function POST(req: NextRequest) {
 
     response.cookies.set("token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
+      // secure: process.env.NODE_ENV === "production",
+      secure: false,
       maxAge: 60 * 60, // 1時間 (秒単位)
       path: "/",
     });

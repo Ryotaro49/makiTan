@@ -20,7 +20,7 @@ function getUserIdFromToken(req: NextRequest): number | null {
   if (!token) return null;
 
   try {
-    const decoded: any = jwt.verify(token, SECRET_KEY);
+    const decoded: any = jwt.verify(token.value, SECRET_KEY);
     return parseInt(decoded.userId, 10);
   } catch (error) {
     console.error("Invalid token:", error);
@@ -30,9 +30,8 @@ function getUserIdFromToken(req: NextRequest): number | null {
 
 export async function GET(req: NextRequest) {
   const userId = getUserIdFromToken(req);
-  // const userId = 1;
   if (!userId) {
-    return new NextResponse("Unauthorized", { status: 401 });
+    return NextResponse.json("Unauthorized", { status: 401 });
   }
   const params = new URL(req.nextUrl).searchParams;
   const unPassedOnlyChecked = params.get("unPassedOnlyChecked");
