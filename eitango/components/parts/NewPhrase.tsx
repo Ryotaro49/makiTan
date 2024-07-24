@@ -8,7 +8,6 @@ import { Box, Button, TextField } from "@mui/material";
 const NewPhrase: React.FC = () => {
   const router = useRouter();
   // 1. フォームの入力値を管理するためのstate
-  const tango_id = 1;
   const [phrase, setPhrase] = useState("");
   const [meaning, setMeaning] = useState("");
   const [category, setCategory] = useState("");
@@ -17,7 +16,6 @@ const NewPhrase: React.FC = () => {
     const res = await fetch(`/api/phrases`, {
       method: "POST",
       body: JSON.stringify({
-        user_id: tango_id,
         phrase: phrase,
         meaning: meaning,
         category: category,
