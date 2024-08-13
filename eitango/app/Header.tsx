@@ -22,8 +22,17 @@ export default function ButtonAppBar() {
           >
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Tango App
+            <Link
+              href={"/"}
+              style={{
+                textDecoration: "none",
+                color: "inherit", // 親要素の色を継承
+              }}
+            >
+              Tango App
+            </Link>
           </Typography>
           <Link href={"/login"}>
             <Button color="inherit" sx={{ color: "white" }}>
