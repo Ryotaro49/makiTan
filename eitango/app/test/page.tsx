@@ -51,11 +51,6 @@ export default async function TestPage({
 
   return (
     <Box>
-      <Link href="/">
-        <Button variant="outlined" size="large">
-          ← back
-        </Button>
-      </Link>
       {phrases.length > 0 ? (
         <Test initialState={phrases} />
       ) : (

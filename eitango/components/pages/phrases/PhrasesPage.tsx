@@ -18,11 +18,6 @@ export function PhrasesPage() {
   }
   return (
     <main>
-      <Link href="/">
-        <Button variant="outlined" size="large">
-          ← back
-        </Button>
-      </Link>
       <h2>単語一覧</h2>
       {/* 3. Client ComponentsのSuspenseの使用 */}
       <Link href="/phrases/new">

@@ -24,11 +24,6 @@ export default async function Page({
   const phrase = await getPhrase(params.tango_id);
   return (
     <main>
-      <Link href="/phrases">
-        <Button variant="outlined" size="large">
-          ← back
-        </Button>
-      </Link>
       <Phrase item={phrase} />
     </main>
   );

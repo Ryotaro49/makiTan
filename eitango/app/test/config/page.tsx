@@ -9,11 +9,6 @@ import TestConfig from "@/components/parts/TestConfig";
 export default async function Page() {
   return (
     <main>
-      <Link href="/">
-        <Button variant="outlined" size="large">
-          ← back
-        </Button>
-      </Link>
       <TestConfig />
     </main>
   );
