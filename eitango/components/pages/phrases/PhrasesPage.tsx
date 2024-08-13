@@ -2,7 +2,7 @@
 
 import Loading from "@/components/Loading";
 import TangoList from "@/components/parts/TangoList";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import Link from "next/link";
 import useSWR from "swr";
 
@@ -17,15 +17,19 @@ export function PhrasesPage() {
     return <Loading />;
   }
   return (
-    <main>
-      <h2>単語一覧</h2>
-      {/* 3. Client ComponentsのSuspenseの使用 */}
-      <Link href="/phrases/new">
-        <Button variant="outlined" size="large">
-          追加
-        </Button>
-      </Link>
+    <Box p={5}>
+      <Box display={"flex"} mb={5}>
+        <Typography variant="h4" mr={5}>
+          単語一覧
+        </Typography>
+        {/* 3. Client ComponentsのSuspenseの使用 */}
+        <Link href="/phrases/new">
+          <Button variant="outlined" size="large">
+            追加
+          </Button>
+        </Link>
+      </Box>
       <TangoList initialState={phrases} />
-    </main>
+    </Box>
   );
 }
