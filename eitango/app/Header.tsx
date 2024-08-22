@@ -1,3 +1,5 @@
+"use client";
+
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -7,8 +9,27 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { useCookies } from "next-client-cookies";
 
 export default function ButtonAppBar() {
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const cookies = useCookies();
+
+  React.useEffect(() => {
+    // トークンが存在するかをチェック
+    const token = cookies.get("token");
+    console.log("token", token);
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
+  const handleSignOut = () => {
+    // サインアウト処理
+    // cookies.delete("token");
+    setIsLoggedIn(false);
+  };
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -28,17 +49,28 @@ export default function ButtonAppBar() {
               href={"/"}
               style={{
                 textDecoration: "none",
-                color: "inherit", // 親要素の色を継承
+                color: "inherit",
               }}
             >
               Tango App
             </Link>
           </Typography>
-          <Link href={"/login"}>
-            <Button color="inherit" sx={{ color: "white" }}>
-              Login
+
+          {isLoggedIn ? (
+            <Button
+              color="inherit"
+              sx={{ color: "white" }}
+              onClick={handleSignOut}
+            >
+              Logout
             </Button>
-          </Link>
+          ) : (
+            <Link href={"/login"}>
+              <Button color="inherit" sx={{ color: "white" }}>
+                Login
+              </Button>
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
     </Box>
