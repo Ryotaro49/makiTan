@@ -9,24 +9,40 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
-import { useCookies } from "next-client-cookies";
 
 export default function ButtonAppBar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const cookies = useCookies();
+  const [email, setEmail] = React.useState("");
 
   React.useEffect(() => {
-    // トークンが存在するかをチェック
-    const token = cookies.get("token");
-    console.log("token", token);
-    if (token) {
-      setIsLoggedIn(true);
-    }
-  }, []);
+    const checkToken = async () => {
+      try {
+        // トークンが存在するかをチェック
+        const response = await fetch("/api/me");
+        const data = await response.json();
+        console.log("data", data);
+        console.log("response", response);
+
+        if (response.ok && data.email) {
+          setIsLoggedIn(true);
+          setEmail(data.email);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        console.error("Failed to check token:", error);
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkToken();
+  }, [isLoggedIn]);
 
   const handleSignOut = () => {
     // サインアウト処理
-    // cookies.delete("token");
+    fetch("/api/delete-cookie", {
+      method: "DELETE",
+    });
     setIsLoggedIn(false);
   };
 
@@ -57,13 +73,15 @@ export default function ButtonAppBar() {
           </Typography>
 
           {isLoggedIn ? (
-            <Button
-              color="inherit"
-              sx={{ color: "white" }}
-              onClick={handleSignOut}
-            >
-              Logout
-            </Button>
+            <Link href={"/login"}>
+              <Button
+                color="inherit"
+                sx={{ color: "white" }}
+                onClick={handleSignOut}
+              >
+                {email}
+              </Button>
+            </Link>
           ) : (
             <Link href={"/login"}>
               <Button color="inherit" sx={{ color: "white" }}>
