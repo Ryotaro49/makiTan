@@ -9,41 +9,14 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
+import { useAuth } from "../hooks/useAuth";
 
 export default function ButtonAppBar() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-
-  React.useEffect(() => {
-    const checkToken = async () => {
-      try {
-        // トークンが存在するかをチェック
-        const response = await fetch("/api/me");
-        const data = await response.json();
-        console.log("data", data);
-        console.log("response", response);
-
-        if (response.ok && data.email) {
-          setIsLoggedIn(true);
-          setEmail(data.email);
-        } else {
-          setIsLoggedIn(false);
-        }
-      } catch (error) {
-        console.error("Failed to check token:", error);
-        setIsLoggedIn(false);
-      }
-    };
-
-    checkToken();
-  }, [isLoggedIn]);
+  const { isLoggedIn, email, signOut } = useAuth();
 
   const handleSignOut = () => {
     // サインアウト処理
-    fetch("/api/delete-cookie", {
-      method: "DELETE",
-    });
-    setIsLoggedIn(false);
+    signOut();
   };
 
   return (
@@ -84,9 +57,7 @@ export default function ButtonAppBar() {
             </Link>
           ) : (
             <Link href={"/login"}>
-              <Button color="inherit" sx={{ color: "white" }}>
-                Login
-              </Button>
+              <Button color="inherit" sx={{ color: "white" }}></Button>
             </Link>
           )}
         </Toolbar>
