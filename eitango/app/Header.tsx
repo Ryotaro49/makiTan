@@ -10,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
+import AccountMenu from "@/components/parts/AccountMenu";
 
 export default function ButtonAppBar() {
   const { isLoggedIn, email, signOut } = useAuth();
@@ -46,18 +47,14 @@ export default function ButtonAppBar() {
           </Typography>
 
           {isLoggedIn ? (
-            <Link href={"/login"}>
-              <Button
-                color="inherit"
-                sx={{ color: "white" }}
-                onClick={handleSignOut}
-              >
-                {email}
-              </Button>
-            </Link>
+            <Box>
+              <AccountMenu />
+            </Box>
           ) : (
             <Link href={"/login"}>
-              <Button color="inherit" sx={{ color: "white" }}></Button>
+              <Button color="inherit" sx={{ color: "white" }}>
+                login
+              </Button>
             </Link>
           )}
         </Toolbar>
