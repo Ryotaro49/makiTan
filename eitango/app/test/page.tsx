@@ -4,6 +4,7 @@ import Link from "next/link";
 import { zPhrases } from "../phrases/type";
 import Test from "@/components/parts/Test";
 import { text } from "stream/consumers";
+import { cookies } from "next/headers";
 
 export const getPhrases = async (
   unPassedOnlyChecked: string,
@@ -15,7 +16,12 @@ export const getPhrases = async (
   url.searchParams.append("questionsCount", questionsCount);
   url.searchParams.append("category", category);
 
-  const res = await fetch(url.toString(), { cache: "no-store" });
+  const res = await fetch(`${apiUrl}/phrases`, {
+    cache: "no-store",
+    headers: {
+      Cookie: `token=${cookies().get("token")?.value}`,
+    },
+  });
   const data = await res.json();
   const phrases = zPhrases.parse(data);
   return phrases;
