@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Noto_Sans_JP } from "next/font/google";
-import Header from "./Header";
 import { CookiesProvider } from "next-client-cookies/server";
+import Header from "../Header";
 
 // 1. フォントの読み込み
 const NotoSansJP = Noto_Sans_JP({
@@ -23,10 +23,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={NotoSansJP.className}>
-        <CookiesProvider>{children}</CookiesProvider>
-      </body>
-    </html>
+    <AppRouterCacheProvider>
+      <Header></Header>
+      <CookiesProvider>{children}</CookiesProvider>
+    </AppRouterCacheProvider>
   );
 }

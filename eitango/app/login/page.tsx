@@ -94,11 +94,11 @@ export default function SignIn() {
             ログイン
           </Button>
           <Grid container>
-            <Grid item xs>
+            {/* <Grid item xs>
               <Link href="#" variant="body2">
                 {"パスワードを忘れた場合はこちら"}
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link href="/signup" variant="body2">
                 {"新規登録の場合はこちら"}

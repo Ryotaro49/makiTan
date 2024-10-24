@@ -7,7 +7,7 @@ export default function TopPage() {
       <Box>
         <Box>
           <Typography variant="h3" textAlign="center" sx={{ marginTop: 20 }}>
-            Tango App
+            makiTan
           </Typography>
         </Box>
         <Box

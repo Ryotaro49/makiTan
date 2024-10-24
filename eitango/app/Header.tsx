@@ -15,25 +15,10 @@ import AccountMenu from "@/components/parts/AccountMenu";
 export default function ButtonAppBar() {
   const { isLoggedIn, email, signOut } = useAuth();
 
-  const handleSignOut = () => {
-    // サインアウト処理
-    signOut();
-  };
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
-
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <Link
               href={"/"}
@@ -42,7 +27,7 @@ export default function ButtonAppBar() {
                 color: "inherit",
               }}
             >
-              Tango App
+              makiTan
             </Link>
           </Typography>
 
