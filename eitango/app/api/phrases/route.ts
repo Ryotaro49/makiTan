@@ -1,4 +1,4 @@
-import { zUpsertPhrase } from "@/app/phrases/type";
+import { zUpsertPhrase } from "@/app/(loggedin)/phrases/type";
 import { prisma } from "@/globals/db";
 import { listItemTextClasses } from "@mui/material";
 import { tango } from "@prisma/client";

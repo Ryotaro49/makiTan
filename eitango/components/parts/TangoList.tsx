@@ -2,7 +2,7 @@
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 import useSWR, { mutate } from "swr";
-import { zPhrase, zPhrases } from "../../app/phrases/type";
+import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

@@ -1,6 +1,6 @@
 "use client";
 import * as React from "react";
-import { zPhrase } from "@/app/phrases/type";
+import { zPhrase } from "@/app/(loggedin)/phrases/type";
 import { Button, Box, Modal, Grid, Stack } from "@mui/material";
 import TestResult from "./TestResult";
 

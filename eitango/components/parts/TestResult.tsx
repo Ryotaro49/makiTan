@@ -1,7 +1,7 @@
 "use client";
 import { Button, Stack, TextField, Typography } from "@mui/material";
 import useSWR, { mutate } from "swr";
-import { zPhrase, zPhrases } from "../../app/phrases/type";
+import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 
 type Props = {

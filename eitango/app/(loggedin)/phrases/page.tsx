@@ -3,7 +3,7 @@ import FetchError from "@/components/FetchError";
 import Loading from "@/components/Loading";
 import { apiUrl } from "@/constants/api";
 import { Suspense } from "react";
-import TangoList from "../../components/parts/TangoList";
+import TangoList from "../../../components/parts/TangoList";
 import { zPhrases } from "./type";
 import { Button } from "@mui/material";
 import Link from "next/link";

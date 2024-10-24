@@ -1,4 +1,4 @@
-import { zUpsertPhrase } from "@/app/phrases/type";
+import { zUpsertPhrase } from "@/app/(loggedin)/phrases/type";
 import { prisma } from "@/globals/db";
 import { NextRequest, NextResponse } from "next/server";
 import { date } from "zod";
