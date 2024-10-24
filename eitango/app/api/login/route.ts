@@ -15,7 +15,7 @@ export async function POST(req: NextRequest) {
 
     if (!email || !password) {
       return NextResponse.json(
-        { message: "Email and password are required" },
+        { message: "メールアドレスかパスワードが正しくありません" },
         { status: 400 },
       );
     }
