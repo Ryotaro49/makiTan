@@ -13,10 +13,6 @@ import { PhrasesPage } from "@/components/pages/phrases/PhrasesPage";
 // 1. 静的/動的レンダリングや再生成の間隔を指定
 export const revalidate = 0;
 
-export const metadata = {
-  title: "List Tangos",
-};
-
 export default async function Page() {
   // const token = cookies().get("token");
   // console.log("token", token);
