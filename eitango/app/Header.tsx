@@ -38,7 +38,7 @@ export default function ButtonAppBar() {
           ) : (
             <Link href={"/login"}>
               <Button color="inherit" sx={{ color: "white" }}>
-                login
+                ログイン
               </Button>
             </Link>
           )}
