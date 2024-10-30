@@ -27,10 +27,11 @@ export default function AccountMenu() {
   const handleLogoutClick = () => {
     signOut();
   };
+  const avatarLetter = email.charAt(0).toUpperCase();
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account settings">
+        <Tooltip title="Account menu">
           <IconButton
             onClick={handleClick}
             size="small"
@@ -39,7 +40,7 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{avatarLetter}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -81,7 +82,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> {email}
+          <Avatar>{avatarLetter}</Avatar> {email}
         </MenuItem>
         <Divider />
         <Link
