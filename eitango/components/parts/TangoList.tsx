@@ -6,6 +6,7 @@ import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import Loading from "../Loading";
 
 type Props = {
   initialState: zPhrase[];
@@ -59,7 +60,7 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   ];
   if (!data) {
     // Data is still loading
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
