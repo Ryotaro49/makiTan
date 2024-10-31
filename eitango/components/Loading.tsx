@@ -1,11 +1,19 @@
+import { Box } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";
+
 const Loading: React.FC = () => {
-    return (
-      <div className="flex justify-center">
-        <div className="animate-ping h-2 w-2 bg-pink-600 rounded-full"></div>
-        <div className="animate-ping h-2 w-2 bg-pink-600 rounded-full mx-4"></div>
-        <div className="animate-ping h-2 w-2 bg-pink-600 rounded-full"></div>
-      </div>
-    )
-  }
-  
-  export default Loading;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        height: "100vh",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  );
+};
+
+export default Loading;
