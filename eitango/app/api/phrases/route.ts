@@ -16,7 +16,6 @@ export const dynamic = "force-dynamic";
 // ユーザーIDをトークンからデコードするヘルパー関数
 function getUserIdFromToken(req: NextRequest): number | null {
   const token = req.cookies.get("token");
-  console.log("token", token);
   if (!token) return null;
 
   try {
@@ -33,10 +32,9 @@ export async function GET(req: NextRequest) {
   if (!userId) {
     return NextResponse.json("Unauthorized", { status: 401 });
   }
-  const params = new URL(req.nextUrl).searchParams;
-  const unPassedOnlyChecked = params.get("unPassedOnlyChecked");
-  const selectedValue = params.get("selectedValue");
-  const category = params.get("category");
+  const unPassedOnlyChecked = req.headers.get("unpassedonlychecked");
+  const questionscount = req.headers.get("questionscount");
+  const category = req.headers.get("category");
 
   const filterOptions = {};
 
@@ -50,9 +48,9 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  if (selectedValue) {
+  if (questionscount) {
     Object.assign(filterOptions, {
-      take: Number(selectedValue),
+      take: Number(questionscount),
     });
   }
 

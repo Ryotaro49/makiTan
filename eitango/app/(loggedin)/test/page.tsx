@@ -11,15 +11,13 @@ export const getPhrases = async (
   questionsCount: string,
   category: string,
 ) => {
-  const url = new URL(`${apiUrl}/phrases`);
-  url.searchParams.append("unPassedOnlyChecked", unPassedOnlyChecked);
-  url.searchParams.append("questionsCount", questionsCount);
-  url.searchParams.append("category", category);
-
   const res = await fetch(`${apiUrl}/phrases`, {
     cache: "no-store",
     headers: {
       Cookie: `token=${cookies().get("token")?.value}`,
+      unPassedOnlyChecked: unPassedOnlyChecked,
+      questionsCount: questionsCount,
+      category: category,
     },
   });
   const data = await res.json();

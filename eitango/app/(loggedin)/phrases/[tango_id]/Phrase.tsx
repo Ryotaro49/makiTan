@@ -121,16 +121,16 @@ const Phrase: React.FC<Props> = ({ item }) => {
             <MenuItem value="">
               <em>未選択</em>
             </MenuItem>
-            <MenuItem value="名詞">名詞</MenuItem>
-            <MenuItem value="代名詞">代名詞</MenuItem>
-            <MenuItem value="動詞">動詞</MenuItem>
-            <MenuItem value="形容詞">形容詞</MenuItem>
-            <MenuItem value="副詞">副詞</MenuItem>
-            <MenuItem value="助動詞">助動詞</MenuItem>
-            <MenuItem value="冠詞">冠詞</MenuItem>
-            <MenuItem value="前置詞">前置詞</MenuItem>
-            <MenuItem value="接続詞">接続詞</MenuItem>
-            <MenuItem value="間投詞">間投詞</MenuItem>
+            <MenuItem value="noun">名詞</MenuItem>
+            <MenuItem value="pronoun">代名詞</MenuItem>
+            <MenuItem value="verb">動詞</MenuItem>
+            <MenuItem value="adjective">形容詞</MenuItem>
+            <MenuItem value="adverb">副詞</MenuItem>
+            <MenuItem value="auxiliaryverb">助動詞</MenuItem>
+            <MenuItem value="article">冠詞</MenuItem>
+            <MenuItem value="preposition">前置詞</MenuItem>
+            <MenuItem value="conjunction">接続詞</MenuItem>
+            <MenuItem value="interjection">間投詞</MenuItem>
           </Select>
         </FormControl>
       </Box>

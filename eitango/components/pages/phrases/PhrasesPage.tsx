@@ -18,10 +18,7 @@ export function PhrasesPage() {
   }
   return (
     <Box p={5}>
-      <Box display={"flex"} mb={5}>
-        <Typography variant="h4" mr={5}>
-          単語一覧
-        </Typography>
+      <Box display={"flex"} justifyContent={"end"} mb={5}>
         {/* 3. Client ComponentsのSuspenseの使用 */}
         <Link href="/phrases/new">
           <Button variant="outlined" size="large">

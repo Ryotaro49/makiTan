@@ -41,7 +41,29 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   const columns: GridColDef[] = [
     { field: "phrase", headerName: "単語", flex: 1 },
     { field: "meaning", headerName: "意味", flex: 1 },
-    { field: "category", headerName: "品詞", flex: 1 },
+    {
+      field: "category",
+      headerName: "品詞",
+      flex: 1,
+      renderCell: (params) => {
+        const categoryLabel: { [key: string]: string } = {
+          noun: "名詞",
+          pronoun: "代名詞",
+          verb: "動詞",
+          adjective: "形容詞",
+          adverb: "副詞",
+          auxiliary: "助動詞",
+          article: "冠詞",
+          preposition: "前置詞",
+          conjunction: "接続詞",
+          interjection: "間投詞",
+        };
+
+        return (
+          <Typography>{categoryLabel[params.value] || params.value}</Typography>
+        );
+      },
+    },
     {
       field: "is_passed",
       headerName: "覚えた",
