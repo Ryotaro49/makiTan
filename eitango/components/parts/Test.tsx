@@ -1,7 +1,16 @@
 "use client";
 import * as React from "react";
 import { zPhrase } from "@/app/(loggedin)/phrases/type";
-import { Button, Box, Modal, Grid, Stack } from "@mui/material";
+import {
+  Button,
+  Box,
+  Modal,
+  Grid,
+  Stack,
+  CardContent,
+  Typography,
+  Card,
+} from "@mui/material";
 import TestResult from "./TestResult";
 
 type Props = {
@@ -94,10 +103,11 @@ const Test: React.FC<Props> = ({ initialState }) => {
       container
       direction="column"
       gap={10}
+      sx={{ minHeight: "50vh" }} // 画面全体の高さを指定
     >
       <React.Fragment>
         <Box
-          boxShadow={8}
+          component={Card}
           border={1}
           p={4}
           fontSize={30}
@@ -105,9 +115,13 @@ const Test: React.FC<Props> = ({ initialState }) => {
           onClick={handleBoxClick}
           sx={{ cursor: "pointer" }}
         >
-          {showMeaning
-            ? phrases[currentIndex].meaning
-            : phrases[currentIndex].phrase}
+          <CardContent>
+            <Typography variant="h5" component="div" align="center">
+              {showMeaning
+                ? phrases[currentIndex].meaning
+                : phrases[currentIndex].phrase}
+            </Typography>
+          </CardContent>
         </Box>
         <Box>
           <Button
