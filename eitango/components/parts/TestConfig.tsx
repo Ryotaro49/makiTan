@@ -3,38 +3,30 @@ import * as React from "react";
 import {
   Button,
   Typography,
-  Radio,
   Box,
-  RadioGroup,
+  FormControl,
   FormControlLabel,
   FormGroup,
   Checkbox,
-  FormControl,
   InputLabel,
   MenuItem,
   Select,
   Stack,
+  Collapse,
+  TextField,
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const TestConfig: React.FC = () => {
   const [questionsCount, setQuestionsCount] = React.useState<string>("10");
-  const [category, setCategory] = React.useState<string>("");
+  const [selectedCategories, setSelectedCategories] = React.useState<string[]>(
+    [],
+  );
   const [unPassedOnlyChecked, setUnPassedOnlyChecked] = React.useState(false);
+  const [isPartsOfSpeechVisible, setIsPartsOfSpeechVisible] =
+    React.useState(false);
   const router = useRouter();
-
-  const handleQuestionCountChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setQuestionsCount(event.target.value);
-  };
-
-  const handleCategoryChange = (event: {
-    target: { value: React.SetStateAction<string> };
-  }) => {
-    setCategory(event.target.value);
-  };
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUnPassedOnlyChecked(event.target.checked);
@@ -58,41 +50,187 @@ const TestConfig: React.FC = () => {
         }}
       >
         <Stack spacing={2} py={2}>
-          <FormControl fullWidth>
-            <InputLabel id="questions-count">問題数</InputLabel>
-            <Select
-              labelId="questions-count"
-              id="category"
-              value={questionsCount}
-              onChange={handleQuestionCountChange}
-            >
-              <MenuItem value="10">10問</MenuItem>
-              <MenuItem value="20">20問</MenuItem>
-              <MenuItem value="30">30問</MenuItem>
-            </Select>
-          </FormControl>
+          <TextField
+            fullWidth
+            label="問題数"
+            type="number"
+            InputProps={{ inputProps: { min: 1 } }}
+            value={questionsCount}
+            onChange={(e) => setQuestionsCount(e.target.value)}
+          />
           <FormControl>
-            <InputLabel id="category-label">品詞</InputLabel>
-            <Select
-              labelId="category-label"
-              value={category}
-              onChange={handleCategoryChange}
-              label="品詞"
+            <Button
+              onClick={() => setIsPartsOfSpeechVisible(!isPartsOfSpeechVisible)}
+              variant="text"
+              sx={{ justifyContent: "flex-start", mb: 1 }}
+              endIcon={isPartsOfSpeechVisible ? "▼" : "▶"}
             >
-              <MenuItem value="">
-                <em>未選択</em>
-              </MenuItem>
-              <MenuItem value="noun">名詞</MenuItem>
-              <MenuItem value="pronoun">代名詞</MenuItem>
-              <MenuItem value="verb">動詞</MenuItem>
-              <MenuItem value="adjective">形容詞</MenuItem>
-              <MenuItem value="adverb">副詞</MenuItem>
-              <MenuItem value="auxiliaryverb">助動詞</MenuItem>
-              <MenuItem value="article">冠詞</MenuItem>
-              <MenuItem value="preposition">前置詞</MenuItem>
-              <MenuItem value="conjunction">接続詞</MenuItem>
-              <MenuItem value="interjection">間投詞</MenuItem>
-            </Select>
+              <Typography variant="subtitle1">品詞</Typography>
+            </Button>
+            <Collapse in={isPartsOfSpeechVisible}>
+              <FormGroup>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("noun")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("noun")
+                            ? prev.filter((c) => c !== "noun")
+                            : [...prev, "noun"],
+                        )
+                      }
+                      value="noun"
+                    />
+                  }
+                  label="名詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("pronoun")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("pronoun")
+                            ? prev.filter((c) => c !== "pronoun")
+                            : [...prev, "pronoun"],
+                        )
+                      }
+                      value="pronoun"
+                    />
+                  }
+                  label="代名詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("verb")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("verb")
+                            ? prev.filter((c) => c !== "verb")
+                            : [...prev, "verb"],
+                        )
+                      }
+                      value="verb"
+                    />
+                  }
+                  label="動詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("adjective")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("adjective")
+                            ? prev.filter((c) => c !== "adjective")
+                            : [...prev, "adjective"],
+                        )
+                      }
+                      value="adjective"
+                    />
+                  }
+                  label="形容詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("adverb")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("adverb")
+                            ? prev.filter((c) => c !== "adverb")
+                            : [...prev, "adverb"],
+                        )
+                      }
+                      value="adverb"
+                    />
+                  }
+                  label="副詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("auxiliaryverb")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("auxiliaryverb")
+                            ? prev.filter((c) => c !== "auxiliaryverb")
+                            : [...prev, "auxiliaryverb"],
+                        )
+                      }
+                      value="auxiliaryverb"
+                    />
+                  }
+                  label="助動詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("article")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("article")
+                            ? prev.filter((c) => c !== "article")
+                            : [...prev, "article"],
+                        )
+                      }
+                      value="article"
+                    />
+                  }
+                  label="冠詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("preposition")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("preposition")
+                            ? prev.filter((c) => c !== "preposition")
+                            : [...prev, "preposition"],
+                        )
+                      }
+                      value="preposition"
+                    />
+                  }
+                  label="前置詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("conjunction")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("conjunction")
+                            ? prev.filter((c) => c !== "conjunction")
+                            : [...prev, "conjunction"],
+                        )
+                      }
+                      value="conjunction"
+                    />
+                  }
+                  label="接続詞"
+                />
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={selectedCategories.includes("interjection")}
+                      onChange={() =>
+                        setSelectedCategories((prev) =>
+                          prev.includes("interjection")
+                            ? prev.filter((c) => c !== "interjection")
+                            : [...prev, "interjection"],
+                        )
+                      }
+                      value="interjection"
+                    />
+                  }
+                  label="間投詞"
+                />
+              </FormGroup>
+            </Collapse>
           </FormControl>
           <FormGroup>
             <FormControlLabel
@@ -107,7 +245,7 @@ const TestConfig: React.FC = () => {
             />
           </FormGroup>
           <Link
-            href={`/test?unPassedOnlyChecked=${unPassedOnlyChecked}&questionsCount=${questionsCount}&category=${category}`}
+            href={`/test?unPassedOnlyChecked=${unPassedOnlyChecked}&questionsCount=${questionsCount}&category=${selectedCategories.join(",")}`}
             style={{ textDecoration: "none" }}
           >
             <Box display={"flex"} justifyContent={"center"}>
