@@ -11,9 +11,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Link from "next/link";
 import { useAuth } from "../hooks/useAuth";
 import AccountMenu from "@/components/parts/AccountMenu";
+import { usePathname } from "next/navigation";
 
 export default function ButtonAppBar() {
   const { isLoggedIn, email, signOut } = useAuth();
+  const pathname = usePathname(); // 現在のパスを取得
+
+  const getPageTitle = () => {
+    if (pathname === "/phrases") return "単語一覧";
+    if (pathname === "/test/config") return "テスト設定";
+    if (pathname === "/test") return "テスト";
+    if (pathname === "/phrases/new") return "単語追加";
+    return ""; // デフォルト: 空
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -29,6 +39,15 @@ export default function ButtonAppBar() {
             >
               makiTan
             </Link>
+            {getPageTitle() && (
+              <Typography
+                variant="subtitle1"
+                component="span"
+                sx={{ ml: 2, color: "inherit" }}
+              >
+                {getPageTitle()}
+              </Typography>
+            )}
           </Typography>
 
           {isLoggedIn ? (
