@@ -55,8 +55,9 @@ export async function GET(req: NextRequest) {
   }
 
   if (category) {
+    const categoryArray = category.split(",").map((cat) => cat.trim());
     Object.assign(filterOptions, {
-      where: { category },
+      where: { category: { in: categoryArray } },
     });
   }
 
