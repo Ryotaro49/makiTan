@@ -1,5 +1,5 @@
 import { apiUrl } from "@/constants/api";
-import { Box, Button } from "@mui/material";
+import { Box, Button, Grid } from "@mui/material";
 import Link from "next/link";
 import { zPhrases } from "../phrases/type";
 import Test from "@/components/parts/Test";
@@ -40,33 +40,29 @@ export default async function TestPage({
     questionsCount,
     category,
   );
-  const style = {
-    position: "absolute" as "absolute",
-    top: "30%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: 400,
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    textAlign: "center",
-    border: "2px solid #000",
-    p: 4,
-  };
 
   return (
-    <Box>
+    <>
       {phrases.length > 0 ? (
         <Test initialState={phrases} />
       ) : (
-        <Box sx={style}>
+        <Grid
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          container
+          direction="column"
+          gap={10}
+          sx={{ minHeight: "40vh" }} // 画面全体の高さを指定
+        >
           <Box fontSize={20}>該当する単語が見つかりませんでした。</Box>
           <Link href="/test/config">
-            <Button variant="outlined" size="large">
+            <Button variant="contained" color="primary">
               <Box>テスト設定に戻る</Box>
             </Button>
           </Link>
-        </Box>
+        </Grid>
       )}
-    </Box>
+    </>
   );
 }
