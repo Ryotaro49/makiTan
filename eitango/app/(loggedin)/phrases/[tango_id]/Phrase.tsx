@@ -1,13 +1,17 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useCallback, useState } from "react";
+import { SetStateAction, useCallback, useState } from "react";
 import { zPhrase } from "../type";
 import {
   Box,
   Button,
   Checkbox,
+  FormControl,
   FormControlLabel,
+  InputLabel,
+  MenuItem,
   Paper,
+  Select,
   TextField,
   Typography,
 } from "@mui/material";
@@ -73,12 +77,18 @@ const Phrase: React.FC<Props> = ({ item }) => {
     setUpdatedIs_passed(event.target.checked);
   };
 
+  const handleCategoryChange = (event: {
+    target: { value: SetStateAction<string> };
+  }) => {
+    setUpdatedCategory(event.target.value);
+  };
+
   return (
     <Box
       my={4}
       display="flex"
       flexDirection={"column"}
-      alignItems="center"
+      alignItems={"center"}
       gap={4}
       p={2}
     >
@@ -92,11 +102,20 @@ const Phrase: React.FC<Props> = ({ item }) => {
         onChange={(e) => setUpdatedMeaning(e.target.value)}
         label="意味"
       />
-      <TextField
-        value={updatedCategory}
-        onChange={(e) => setUpdatedCategory(e.target.value)}
-        label="品詞"
-      />
+      <FormControl>
+        <InputLabel id="category-label">品詞</InputLabel>
+        <Select
+          labelId="category-label"
+          value={updatedCategory}
+          onChange={handleCategoryChange}
+          label="品詞"
+        >
+          <MenuItem value="名詞">名詞</MenuItem>
+          <MenuItem value="動詞">動詞</MenuItem>
+          <MenuItem value="形容詞">形容詞</MenuItem>
+          <MenuItem value="副詞">副詞</MenuItem>
+        </Select>
+      </FormControl>
       <FormControlLabel
         control={
           <Checkbox
