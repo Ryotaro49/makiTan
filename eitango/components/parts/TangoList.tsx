@@ -1,18 +1,9 @@
 "use client";
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
-import Link from "next/link";
-import useSWR, { mutate } from "swr";
+import { Box, Button, Typography } from "@mui/material";
+import useSWR from "swr";
 import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import Loading from "../Loading";
 
 type Props = {
@@ -93,12 +84,18 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   }
 
   return (
-    <Box sx={{ height: "calc(100vh - 250px)", width: "100%" }}>
+    <Box
+      sx={{
+        height: "calc(100vh - 250px)",
+        overflow: "auto",
+      }}
+    >
       <DataGrid
         rows={data}
         columns={columns}
         checkboxSelection={false}
         getRowId={(row) => row.tango_id}
+        sx={{ minWidth: "600px", overflow: "auto" }}
       />
     </Box>
   );
