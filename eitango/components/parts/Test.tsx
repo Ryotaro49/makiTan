@@ -88,7 +88,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 400,
+    width: "90%",
     bgcolor: "background.paper",
     boxShadow: 24,
     p: 4,
@@ -149,9 +149,6 @@ const Test: React.FC<Props> = ({ initialState }) => {
         >
           <Box sx={style}>
             <Stack spacing={2}>
-              <Box fontSize={30} id="modal-title">
-                テスト終了
-              </Box>
               <Box>{resultMessage}</Box>
               <Box id="modal-description">
                 {phrases.length}単語中{rememberedCount}単語覚えました！

@@ -95,7 +95,7 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
         columns={columns}
         checkboxSelection={false}
         getRowId={(row) => row.tango_id}
-        sx={{ minWidth: "600px", overflow: "auto" }}
+        sx={{ minWidth: "600px" }}
       />
     </Box>
   );

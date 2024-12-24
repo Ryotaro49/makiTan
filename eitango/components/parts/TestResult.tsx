@@ -1,8 +1,9 @@
 "use client";
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
 import useSWR, { mutate } from "swr";
 import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
+import Loading from "../Loading";
 
 type Props = {
   initialState: zPhrase[];
@@ -35,18 +36,24 @@ const TestResult: React.FC<Props> = ({ initialState }) => {
   ];
   if (!data) {
     // Data is still loading
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   return (
-    <div style={{ height: 400, width: "100%" }}>
+    <Box
+      sx={{
+        height: "calc(100vh - 250px)",
+        overflow: "auto",
+      }}
+    >
       <DataGrid
         rows={data}
         columns={columns}
         checkboxSelection={false}
         getRowId={(row) => row.tango_id}
+        sx={{ minWidth: "600px" }}
       />
-    </div>
+    </Box>
   );
 };
 
