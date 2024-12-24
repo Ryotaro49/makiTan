@@ -46,7 +46,7 @@ export default function SignIn() {
         console.log("Error:", result.message);
       } else {
         const result = await res.json();
-        alert(`ログインしました。User ID: ${result.userId}`);
+        alert(`ログインしました。`);
         console.log("Login successful");
         window.location.href = "/";
       }
