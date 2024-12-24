@@ -42,7 +42,7 @@ export async function POST(req: NextRequest) {
 
     // 認証成功 - トークンを生成してクッキーに保存
     const token = jwt.sign({ userId: user.user_id }, SECRET_KEY, {
-      expiresIn: rememberMe ? "30d" : "1h", // rememberMe が true なら30日、false なら1時間
+      expiresIn: rememberMe ? "30d" : "12h", // rememberMe が true なら30日、false なら12時間 (秒単位)
     });
 
     const response = NextResponse.json({
@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
       httpOnly: true,
       // secure: process.env.NODE_ENV === "production",
       secure: false,
-      maxAge: rememberMe ? 30 * 24 * 60 * 60 : 60 * 60, // rememberMe が true なら30日、false なら1時間 (秒単位)
+      maxAge: rememberMe ? 30 * 24 * 60 * 60 : 12 * 60 * 60, // rememberMe が true なら30日、false なら12時間 (秒単位)
     });
 
     return response;
