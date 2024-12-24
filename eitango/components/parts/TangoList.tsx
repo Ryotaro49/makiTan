@@ -5,6 +5,7 @@ import { zPhrase, zPhrases } from "../../app/(loggedin)/phrases/type";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import Loading from "../Loading";
+import EditIcon from "@mui/icons-material/Edit";
 
 type Props = {
   initialState: zPhrase[];
@@ -69,11 +70,10 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
       flex: 1,
       renderCell: (params) => (
         <Button
-          variant="contained"
-          color="primary"
           onClick={() => handleEditButtonClick(params.row as zPhrase)} // 編集ボタンがクリックされたときの処理
+          startIcon={<EditIcon />} // アイコンを追加
         >
-          Edit
+          編集
         </Button>
       ),
     },

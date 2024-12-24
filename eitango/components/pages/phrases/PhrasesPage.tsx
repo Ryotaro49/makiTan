@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 import useSWR from "swr";
+import AddIcon from "@mui/icons-material/Add";
 
 export function PhrasesPage() {
   const {
@@ -27,10 +28,10 @@ export function PhrasesPage() {
   }
   return (
     <Box px={isMobile ? 0 : 5} pt={isMobile ? 2 : 5}>
-      <Box display={"flex"} justifyContent={"end"} mb={5}>
+      <Box display={"flex"} justifyContent={"end"} mb={2}>
         {/* 3. Client ComponentsのSuspenseの使用 */}
         <Link href="/phrases/new">
-          <Button variant="outlined" size="large">
+          <Button variant="outlined" size="large" startIcon={<AddIcon />}>
             追加
           </Button>
         </Link>

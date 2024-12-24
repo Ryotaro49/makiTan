@@ -12,6 +12,7 @@ import {
   Card,
 } from "@mui/material";
 import TestResult from "./TestResult";
+import { useRouter } from "next/navigation";
 
 type Props = {
   initialState: zPhrase[];
@@ -25,6 +26,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
   const [rememberedCount, setRememberedCount] = React.useState(0);
   const [resultMessage, setResultMessage] = React.useState("");
   const percentage = (rememberedCount / phrases.length) * 100;
+  const router = useRouter();
 
   // コンポーネントがマウントされたときにメッセージを設定
   React.useEffect(() => {
@@ -77,10 +79,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
   };
 
   const handleCloseModal = () => {
-    setOpenModal(false);
-    setCurrentIndex(0); // モーダルを閉じたら最初の単語から再開する
-    setRememberedCount(0); // 覚えた単語のカウントをリセットする
-    window.location.reload(); // ページをリフレッシュ
+    router.push("/test/config");
   };
 
   const style = {

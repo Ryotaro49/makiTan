@@ -52,6 +52,7 @@ const TestResult: React.FC<Props> = ({ initialState }) => {
         checkboxSelection={false}
         getRowId={(row) => row.tango_id}
         sx={{ minWidth: "600px" }}
+        hideFooter
       />
     </Box>
   );
