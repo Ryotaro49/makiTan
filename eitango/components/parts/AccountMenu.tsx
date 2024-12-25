@@ -31,7 +31,7 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Tooltip title="Account menu">
+        <Tooltip title="アカウントメニュー">
           <IconButton
             onClick={handleClick}
             size="small"
