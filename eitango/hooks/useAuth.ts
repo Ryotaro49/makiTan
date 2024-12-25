@@ -10,8 +10,6 @@ export const useAuth = () => {
         // トークンが存在するかをチェック
         const response = await fetch("/api/me");
         const data = await response.json();
-        console.log("data", data);
-        console.log("response", response);
 
         if (response.ok && data.email) {
           setIsLoggedIn(true);
@@ -32,8 +30,14 @@ export const useAuth = () => {
     // サインアウト処理
     fetch("/api/delete-cookie", {
       method: "DELETE",
-    });
-    setIsLoggedIn(false);
+    })
+      .then(() => {
+        setIsLoggedIn(false);
+        window.location.replace("/lp"); // サインアウト後に /lp にリダイレクト
+      })
+      .catch((error) => {
+        console.error("Failed to sign out:", error);
+      });
   };
 
   return { isLoggedIn, email, signOut };

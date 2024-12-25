@@ -93,7 +93,7 @@ export default function AccountMenu() {
             <ListItemIcon>
               <Logout fontSize="small" />
             </ListItemIcon>
-            Logout
+            ログアウト
           </MenuItem>
         </Link>
       </Menu>

@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
 
   // トークンがない場合は /login にリダイレクト
   if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+    return NextResponse.redirect(new URL("/lp", req.url));
   }
 
   // トークンがあればリクエストを続行

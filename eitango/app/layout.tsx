@@ -4,6 +4,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import { Noto_Sans_JP } from "next/font/google";
 import Header from "./Header";
 import { CookiesProvider } from "next-client-cookies/server";
+import { CssBaseline } from "@mui/material";
+import ThemeWrapper from "@/components/pages/layout/ThemeWrapper";
 
 // 1. フォントの読み込み
 const NotoSansJP = Noto_Sans_JP({
@@ -25,7 +27,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={NotoSansJP.className}>
-        <CookiesProvider>{children}</CookiesProvider>
+        <CssBaseline />
+        <CookiesProvider>
+          <ThemeWrapper>{children}</ThemeWrapper>
+        </CookiesProvider>
       </body>
     </html>
   );

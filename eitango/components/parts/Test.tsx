@@ -13,12 +13,14 @@ import {
 } from "@mui/material";
 import TestResult from "./TestResult";
 import { useRouter } from "next/navigation";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 type Props = {
   initialState: zPhrase[];
 };
 
 const Test: React.FC<Props> = ({ initialState }) => {
+  const initialWordSpoken = React.useRef(false);
   const [phrases, setPhrases] = React.useState(initialState);
   const [currentIndex, setCurrentIndex] = React.useState(0);
   const [showMeaning, setShowMeaning] = React.useState(false);
@@ -30,6 +32,10 @@ const Test: React.FC<Props> = ({ initialState }) => {
 
   // コンポーネントがマウントされたときにメッセージを設定
   React.useEffect(() => {
+    if (phrases.length > 0 && !initialWordSpoken.current) {
+      handleSpeak(phrases[0].phrase);
+      initialWordSpoken.current = true;
+    }
     // メッセージを設定する関数
     const setMessageBasedOnPercentage = () => {
       if (percentage >= 80) {
@@ -42,7 +48,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
     };
 
     setMessageBasedOnPercentage();
-  }, [percentage]);
+  }, [percentage, phrases]);
 
   const handleRememberedClick = async (value: boolean) => {
     setPhrases((prevPhrases) => {
@@ -70,6 +76,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
     if (currentIndex === phrases.length - 1) {
       setOpenModal(true); // 最後の単語が表示されたらモーダルを開く
     } else {
+      handleSpeak(phrases[currentIndex + 1].phrase); // 次の単語を読み上げる
       setCurrentIndex((prevIndex) => prevIndex + 1);
       setShowMeaning(false); // 次のフレーズを表示する際に意味を非表示にリセットする
     }
@@ -80,6 +87,16 @@ const Test: React.FC<Props> = ({ initialState }) => {
 
   const handleCloseModal = () => {
     router.push("/test/config");
+  };
+
+  const handleSpeak = (text: string) => {
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US"; // 英語を設定
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("このブラウザは音声読み上げ機能に対応していません。");
+    }
   };
 
   const style = {
@@ -100,7 +117,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
       alignItems="center"
       container
       direction="column"
-      gap={10}
+      gap={2}
       sx={{ minHeight: "50vh" }} // 画面全体の高さを指定
     >
       <React.Fragment>
@@ -111,7 +128,7 @@ const Test: React.FC<Props> = ({ initialState }) => {
           fontSize={30}
           width={300}
           onClick={handleBoxClick}
-          sx={{ cursor: "pointer" }}
+          sx={{ cursor: "pointer", userSelect: "none" }}
         >
           <CardContent>
             <Typography variant="h5" component="div" align="center">
@@ -121,6 +138,12 @@ const Test: React.FC<Props> = ({ initialState }) => {
             </Typography>
           </CardContent>
         </Box>
+        <Button
+          onClick={() => handleSpeak(phrases[currentIndex].phrase)} // 音声読み上げ処理
+          startIcon={<VolumeUpIcon />} // 音声アイコンを追加
+          size="large"
+          sx={{ width: 300, height: 50 }}
+        />
         <Box>
           <Button
             variant="contained"

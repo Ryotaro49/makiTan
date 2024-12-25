@@ -6,6 +6,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { useRouter } from "next/navigation";
 import Loading from "../Loading";
 import EditIcon from "@mui/icons-material/Edit";
+import VolumeUpIcon from "@mui/icons-material/VolumeUp";
 
 type Props = {
   initialState: zPhrase[];
@@ -28,6 +29,16 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
   const handleEditButtonClick = (Phrase: zPhrase) => {
     router.push(`/phrases/${Phrase.tango_id}`);
     router.refresh();
+  };
+
+  const handleSpeak = (text: string) => {
+    if ("speechSynthesis" in window) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = "en-US"; // 英語を設定
+      window.speechSynthesis.speak(utterance);
+    } else {
+      alert("このブラウザは音声読み上げ機能に対応していません。");
+    }
   };
 
   const columns: GridColDef[] = [
@@ -65,6 +76,19 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
       ),
     },
     {
+      field: "speak",
+      headerName: "音声",
+      flex: 1,
+      renderCell: (params) => (
+        <Button
+          onClick={() => handleSpeak(params.row.phrase)} // 音声読み上げ処理
+          startIcon={<VolumeUpIcon />} // 音声アイコンを追加
+        >
+          読み上げ
+        </Button>
+      ),
+    },
+    {
       field: "edit",
       headerName: "編集", // ヘッダーに表示されるテキスト
       flex: 1,
@@ -78,6 +102,7 @@ const TangoList: React.FC<Props> = ({ initialState }) => {
       ),
     },
   ];
+
   if (!data) {
     // Data is still loading
     return <Loading />;
