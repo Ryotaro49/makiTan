@@ -5,25 +5,7 @@ import { zPhrases } from "../phrases/type";
 import Test from "@/components/parts/Test";
 import { text } from "stream/consumers";
 import { cookies } from "next/headers";
-
-export const getPhrases = async (
-  unPassedOnlyChecked: string,
-  questionsCount: string,
-  category: string,
-) => {
-  const res = await fetch(`${apiUrl}/phrases`, {
-    cache: "no-store",
-    headers: {
-      Cookie: `token=${cookies().get("token")?.value}`,
-      unPassedOnlyChecked: unPassedOnlyChecked,
-      questionsCount: questionsCount,
-      category: category,
-    },
-  });
-  const data = await res.json();
-  const phrases = zPhrases.parse(data);
-  return phrases;
-};
+import { getPhrases } from "./utils";
 
 export default async function TestPage({
   searchParams,

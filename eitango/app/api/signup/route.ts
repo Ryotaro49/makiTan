@@ -31,19 +31,19 @@ export async function POST(req: NextRequest) {
     });
 
     // 送信する確認メールの内容を作成
-    const confirmationEmail = {
-      to: email,
-      subject: "メールアドレスの確認",
-      html: `以下のリンクをクリックしてメールアドレスを確認してください：<a href="https://yourapp.com/confirm/${user.user_id}?token=${token}">メールアドレスを確認する</a>`,
-    };
+    // const confirmationEmail = {
+    //   to: email,
+    //   subject: "メールアドレスの確認",
+    //   html: `以下のリンクをクリックしてメールアドレスを確認してください：<a href="https://yourapp.com/confirm/${user.user_id}?token=${token}">メールアドレスを確認する</a>`,
+    // };
 
-    // 確認メールを送信
-    await sendConfirmationEmail(confirmationEmail);
+    // // 確認メールを送信
+    // await sendConfirmationEmail(confirmationEmail);
 
-    return NextResponse.json(
-      { message: "ユーザーが作成されました。確認メールが送信されました。" },
-      { status: 201 },
-    );
+    // return NextResponse.json(
+    //   { message: "ユーザーが作成されました。確認メールが送信されました。" },
+    //   { status: 201 },
+    // );
 
     return NextResponse.json({ token }, { status: 201 });
   } catch (error: any) {
@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
 
 // emailService.js
 
-export async function sendConfirmationEmail(emailData: any) {
-  // ここでは実際にメールを送信する代わりに、コンソールにメール内容を出力します
-  console.log("Sending email:", emailData);
-}
+// export async function sendConfirmationEmail(emailData: any) {
+//   // ここでは実際にメールを送信する代わりに、コンソールにメール内容を出力します
+//   console.log("Sending email:", emailData);
+// }
