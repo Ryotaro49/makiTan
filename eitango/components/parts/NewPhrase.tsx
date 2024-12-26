@@ -37,6 +37,9 @@ const NewPhrase: React.FC = () => {
     if (res.ok) {
       alert("単語が追加されました。");
       // 3. 現在のページのデータをサーバーから再取得する
+      setPhrase("");
+      setMeaning("");
+      setCategory("");
       router.refresh();
     } else {
       alert("単語が追加できませんでした。");
