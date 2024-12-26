@@ -1,6 +1,54 @@
 # makiTan
 
-```
-makiTan/eitango$ npx run build
-makiTan/eitango$ npm run dev
-```
+## 概要
+
+makiTan は、シンプルで効率的な単語学習アプリです。学生や語学学習者、試験対策をしている方々に向けて、簡単な操作で新しい単語を学ぶ手助けをします。
+
+## 特徴
+
+- **直感的なユーザーインターフェース**：シンプルで使いやすいデザインで、ストレスなく学習を進められます。
+- **単語練習**：テストを通じて、効果的に英単語を学ぶことができます。
+- **マルチプラットフォーム対応**：どのデバイスでも、ブラウザが利用できれば利用可能です。
+
+## 使用方法
+
+1. **ウェブサイトにアクセス**  
+   makiTan は [https://www.makitan.jp/](https://www.makitan.jp/) で利用できます。
+
+2. **ローカルでのセットアップと実行**  
+   以下の手順で、ローカル環境にてアプリを実行することができます。
+
+   - リポジトリをクローン：
+
+     ```bash
+     git clone https://github.com/Ryotaro49/makiTan.git
+     cd makiTan
+     ```
+
+   - `eitango`ディレクトリに移動：
+
+     ```bash
+     cd eitango
+     ```
+
+   - プロジェクトをビルド：
+
+     ```bash
+     npx run build
+     ```
+
+   - 開発サーバーを起動：
+     ```bash
+     npm run dev
+     ```
+
+3. **アプリへのアクセス**  
+   ブラウザを開き、`http://localhost:3000` にアクセスしてアプリを利用してください。
+
+## 貢献
+
+makiTan への貢献は歓迎です！問題や改善の提案がある場合は、GitHub リポジトリにプルリクエストを送ってください。
+
+## ライセンス
+
+makiTan は [MIT ライセンス](https://opensource.org/licenses/MIT) のもと、オープンソースとして提供されています。
