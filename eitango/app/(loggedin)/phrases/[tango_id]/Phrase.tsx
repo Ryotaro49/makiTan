@@ -104,11 +104,33 @@ const Phrase: React.FC<Props> = ({ item }) => {
           value={updatedPhrase}
           onChange={(e) => setUpdatedPhrase(e.target.value)}
           label="単語"
+          multiline
+          minRows={1} // 最小行数
+          maxRows={Infinity} // 最大行数（制限なしの場合）
+          inputProps={{
+            maxLength: 100, // 最大入力文字数を100に制限
+          }}
+          sx={{
+            "& .MuiInputBase-root": {
+              overflowY: "auto", // 必要に応じてスクロール
+            },
+          }}
         />
         <TextField
           value={updatedMeaning}
           onChange={(e) => setUpdatedMeaning(e.target.value)}
           label="意味"
+          multiline
+          minRows={1} // 最小行数
+          maxRows={Infinity} // 最大行数（制限なしの場合）
+          inputProps={{
+            maxLength: 100, // 最大入力文字数を100に制限
+          }}
+          sx={{
+            "& .MuiInputBase-root": {
+              overflowY: "auto", // 必要に応じてスクロール
+            },
+          }}
         />
         <FormControl>
           <InputLabel id="category-label">品詞</InputLabel>
