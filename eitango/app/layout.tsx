@@ -26,6 +26,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-9904912777438772" />
+      </head>
       <body className={NotoSansJP.className}>
         <CssBaseline />
         <CookiesProvider>
