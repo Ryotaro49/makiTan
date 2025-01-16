@@ -36,29 +36,21 @@ export async function GET(req: NextRequest) {
   const questionscount = req.headers.get("questionscount");
   const category = req.headers.get("category");
 
-  const filterOptions = {};
+  const filterOptions: { where: any; take?: number } = { where: {} };
 
-  Object.assign(filterOptions, {
-    where: { user_id: userId },
-  });
+  filterOptions.where = { user_id: userId };
 
   if (unPassedOnlyChecked == "true") {
-    Object.assign(filterOptions, {
-      where: { is_passed: false },
-    });
+    filterOptions.where.is_passed = false;
   }
 
   if (questionscount) {
-    Object.assign(filterOptions, {
-      take: Number(questionscount),
-    });
+    filterOptions.take = Number(questionscount);
   }
 
   if (category) {
     const categoryArray = category.split(",").map((cat) => cat.trim());
-    Object.assign(filterOptions, {
-      where: { category: { in: categoryArray } },
-    });
+    filterOptions.where.category = { in: categoryArray };
   }
 
   const phrases = await prisma.tango.findMany(filterOptions);
