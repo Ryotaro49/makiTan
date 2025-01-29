@@ -28,9 +28,6 @@ export default async function TestPage({
           .map(({ value }) => value)
       : phrases;
 
-  console.log(shuffle);
-  console.log(shuffledPhrases);
-
   return (
     <>
       {shuffledPhrases.length > 0 ? (
