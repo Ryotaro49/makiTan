@@ -1,10 +1,6 @@
-import { apiUrl } from "@/constants/api";
 import { Box, Button, Grid } from "@mui/material";
 import Link from "next/link";
-import { zPhrases } from "../phrases/type";
 import Test from "@/components/parts/Test";
-import { text } from "stream/consumers";
-import { cookies } from "next/headers";
 import { getPhrases } from "./utils";
 
 export default async function TestPage({
@@ -13,20 +9,29 @@ export default async function TestPage({
   searchParams: {
     unPassedOnlyChecked: string;
     questionsCount: string;
+    shuffle: string;
     category: string;
   };
 }) {
-  const { unPassedOnlyChecked, questionsCount, category } = searchParams;
+  const { unPassedOnlyChecked, questionsCount, shuffle, category } =
+    searchParams;
   const phrases = await getPhrases(
     unPassedOnlyChecked,
     questionsCount,
     category,
   );
+  const shuffledPhrases =
+    shuffle === "true"
+      ? phrases
+          .map((value) => ({ value, sort: Math.random() }))
+          .sort((a, b) => a.sort - b.sort)
+          .map(({ value }) => value)
+      : phrases;
 
   return (
     <>
-      {phrases.length > 0 ? (
-        <Test initialState={phrases} />
+      {shuffledPhrases.length > 0 ? (
+        <Test initialState={shuffledPhrases} />
       ) : (
         <Grid
           display="flex"
