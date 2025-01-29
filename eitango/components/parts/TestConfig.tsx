@@ -26,6 +26,7 @@ const TestConfig: React.FC = () => {
   const [unPassedOnlyChecked, setUnPassedOnlyChecked] = React.useState(false);
   const [isPartsOfSpeechVisible, setIsPartsOfSpeechVisible] =
     React.useState(false);
+  const [shuffle, setShuffle] = React.useState(false);
   const router = useRouter();
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -243,9 +244,19 @@ const TestConfig: React.FC = () => {
               }
               label="覚えていないものだけ"
             />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  checked={shuffle}
+                  onChange={(e) => setShuffle(e.target.checked)}
+                  value="True"
+                />
+              }
+              label="シャッフルする"
+            />
           </FormGroup>
           <Link
-            href={`/test?unPassedOnlyChecked=${unPassedOnlyChecked}&questionsCount=${questionsCount}&category=${selectedCategories.join(",")}`}
+            href={`/test?unPassedOnlyChecked=${unPassedOnlyChecked}&questionsCount=${questionsCount}&shuffle=${shuffle}&category=${selectedCategories.join(",")}`}
             style={{ textDecoration: "none" }}
           >
             <Box display={"flex"} justifyContent={"center"}>
